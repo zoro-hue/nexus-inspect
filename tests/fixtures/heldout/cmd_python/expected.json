@@ -1,0 +1,6 @@
+{
+  "description": "shell=True with an f-string built from a parameter (command injection). The list-form call and the literal os.system call must not be flagged.",
+  "expected": [
+    {"ruleId": "SEC-CMD-001", "filePath": "app/tools.py", "startLine": 6}
+  ]
+}

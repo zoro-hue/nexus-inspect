@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEXUS INSPECT — Your code deserves a second pair of eyes.</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="home.css?v=10">
+<link rel="stylesheet" href="dash.css">
+<link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="docs.css">
+<link rel="stylesheet" href="assistant.css">
+<script src="boot.js"></script>
+</head>
+<body>
+
+<!-- ============ DOCUMENTATION & API REFERENCE ============ -->
+<section id="docsPage" class="docs-page" hidden aria-label="Documentation">
+  <header class="docs-top">
+    <a class="brand" href="#home" aria-label="Back to home">NEXUS.</a>
+    <span class="docs-kicker mono" id="docsKicker">Documentation</span>
+    <nav class="docs-top-nav" aria-label="Documentation sections">
+      <a class="capsule-link" href="#docs/introduction">Docs</a>
+      <a class="capsule-link" href="#api">API reference</a>
+    </nav>
+    <div class="docs-top-actions" id="docsTopActions">
+      <div class="auth-guest-only">
+        <a class="btn btn-ghost btn-sm" href="#signin">Sign in</a>
+        <a class="btn btn-primary btn-sm" href="#signup">Get Started</a>
+      </div>
+      <div class="auth-user-only" hidden>
+        <a class="btn btn-primary btn-sm" href="#overview">Open dashboard</a>
+        <button class="btn btn-ghost btn-sm" id="docsSignOutBtn" type="button">Sign out</button>
+      </div>
+    </div>
+  </header>
+  <div class="docs-layout">
+    <aside class="docs-side" aria-label="Table of contents">
+      <label class="visually-hidden" for="docsSearch">Search documentation</label>
+      <input class="docs-search" id="docsSearch" type="search" placeholder="Search" autocomplete="off">
+      <nav id="docsToc" class="docs-toc"></nav>
+    </aside>
+    <main class="docs-main" id="docsBody" tabindex="-1"></main>
+  </div>
+</section>
+
+<!-- ============ AUTH ============ -->
+<section id="auth" class="auth-page" hidden aria-labelledby="authTitle">
+  <header class="auth-top"><a class="brand" href="#home" aria-label="Back to home">NEXUS.</a></header>
+  <main class="auth-wrap">
+    <div class="auth-card">
+      <p class="auth-kicker mono" id="authKicker">Sign in</p>
+      <h1 class="auth-title" id="authTitle">Welcome back</h1>
+      <div class="auth-alert" id="authAlert" role="alert" hidden></div>
+
+      <form id="signinForm" class="auth-form" novalidate hidden>
+        <div class="field" data-field="email">
+          <label for="signinEmail">Email</label>
+          <input id="signinEmail" name="email" type="email" autocomplete="email" required>
+          <span class="field-error" aria-live="polite"></span>
+        </div>
+        <div class="field" data-field="password">
+          <label for="signinPassword">Password</label>
+          <div class="pw-wrap">
+            <input id="signinPassword" name="password" type="password" autocomplete="current-password" required>
+            <button class="pw-toggle" type="button" aria-controls="signinPassword" aria-pressed="false" aria-label="Show password">Show</button>
+          </div>
+          <span class="field-error" aria-live="polite"></span>
+        </div>
+        <button class="btn btn-primary auth-submit" type="submit">Sign in</button>
+      </form>
+
+      <form id="signupForm" class="auth-form" novalidate hidden>
+        <div class="field" data-field="name">
+          <label for="signupName">Name</label>
+          <input id="signupName" name="name" type="text" autocomplete="name" maxlength="80" required>
+          <span class="field-error" aria-live="polite"></span>
+        </div>
+        <div class="field" data-field="email">
+          <label for="signupEmail">Email</label>
+          <input id="signupEmail" name="email" type="email" autocomplete="email" required>
+          <span class="field-error" aria-live="polite"></span>
+        </div>
+        <div class="field" data-field="password">
+          <label for="signupPassword">Password</label>
+          <div class="pw-wrap">
+            <input id="signupPassword" name="password" type="password" autocomplete="new-password" minlength="10" maxlength="128" required aria-describedby="signupHint">
+            <button class="pw-toggle" type="button" aria-controls="signupPassword" aria-pressed="false" aria-label="Show password">Show</button>
+          </div>
+          <span class="field-hint" id="signupHint">At least 10 characters, with one letter and one number.</span>
+          <span class="field-error" aria-live="polite"></span>
+        </div>
+        <button class="btn btn-primary auth-submit" type="submit">Create account</button>
+      </form>
+
+      <p class="auth-switch" id="authSwitch"></p>
+    </div>
+  </main>
+</section>
+
+<!-- ============ MARKETING ============ -->
+<div id="marketing">
+  <header class="gnav" id="gnav">
+    <div class="gnav-row">
+      <a class="brand" href="#home" aria-label="NEXUS INSPECT home">NEXUS.</a>
+      <nav class="gnav-links" aria-label="Primary">
+        <span class="gnav-pill" id="gnavPill" aria-hidden="true"></span>
+        <button data-menu="product" aria-controls="mega" aria-expanded="false">Product</button>
+        <button data-menu="capabilities" aria-controls="mega" aria-expanded="false">Capabilities</button>
+        <button data-menu="how" aria-controls="mega" aria-expanded="false">How It Works</button>
+        <button data-menu="docs" aria-controls="mega" aria-expanded="false">Documentation</button>
+        <button data-menu="about" aria-controls="mega" aria-expanded="false">About</button>
+      </nav>
+      <div class="gnav-actions" id="gnavActions">
+        <div class="auth-guest-only">
+          <a class="btn btn-ghost btn-sm" href="#signin" id="gnavSignIn">Sign in</a>
+          <a class="btn btn-primary btn-sm" href="#signup" id="gnavSignUp">Get Started</a>
+        </div>
+        <div class="auth-user-only" id="gnavUserWrap" hidden>
+          <a class="btn btn-primary btn-sm" href="#overview" style="margin-right:4px">Open dashboard</a>
+          <div class="profile" id="gnavProfile">
+            <button class="profile-btn" id="gnavProfileBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="gnavProfileMenu" aria-label="Account menu">
+              <span id="gnavProfileInitials">··</span>
+            </button>
+            <div class="profile-menu" id="gnavProfileMenu" role="menu" hidden>
+              <div class="profile-who">
+                <strong id="gnavProfileName"></strong>
+                <span class="mono muted" id="gnavProfileEmail"></span>
+              </div>
+              <button class="profile-item profile-danger" type="button" role="menuitem" id="gnavSignOutBtn">Sign out</button>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileSheet" aria-label="Open menu">Menu</button>
+      </div>
+
+      <div class="mega" id="mega" aria-live="polite">
+        <div class="mega-inner">
+          <div class="mega-panel" data-panel="product" hidden>
+            <div class="mega-grid">
+              <a class="mega-link" href="#overview"><strong>Overview</strong><span>Repository count, findings and code health at a glance.</span></a>
+              <a class="mega-link" href="#analyze"><strong>Analyze a repository</strong><span>Start an investigation and watch the pipeline stages run.</span></a>
+              <a class="mega-link" href="#findings"><strong>Findings workspace</strong><span>Filter by severity and category, then open the evidence.</span></a>
+              <a class="mega-link" href="#projects"><strong>Projects</strong><span>Health scores and analysis history for each repository.</span></a>
+              <a class="mega-link" href="#reports"><strong>Reports</strong><span>Executive summary, breakdowns and copyable Markdown.</span></a>
+              <a class="mega-link" href="#showcase"><strong>Investigation showcase</strong><span>See how an analysis moves from files to evidence, illustrated with sample data.</span></a>
+            </div>
+          </div>
+          <div class="mega-panel" data-panel="capabilities" hidden>
+            <div class="mega-grid">
+              <a class="mega-link" href="#capabilities"><strong>Security Intelligence</strong><span>Secrets, injection, auth gaps and unsafe configuration.</span></a>
+              <a class="mega-link" href="#capabilities"><strong>AI Slop Detection</strong><span>Placeholders, stubs and behavior that does not match its name.</span></a>
+              <a class="mega-link" href="#capabilities"><strong>Coding Gap Analysis</strong><span>Missing validation, error handling and tests.</span></a>
+              <a class="mega-link" href="#capabilities"><strong>Loose-End Discovery</strong><span>TODOs, dead code, unused packages and disconnected routes.</span></a>
+            </div>
+          </div>
+          <div class="mega-panel" data-panel="how" hidden>
+            <div class="mega-grid">
+              <a class="mega-link" href="#how"><strong>Connect a repository</strong><span>Point NEXUS at a repository URL and choose a branch.</span></a>
+              <a class="mega-link" href="#how"><strong>Understand the structure</strong><span>Detect language, framework and module layout.</span></a>
+              <a class="mega-link" href="#how"><strong>Correlate findings</strong><span>Every result carries a file, a line and a confidence.</span></a>
+              <a class="mega-link" href="#evidence"><strong>See an example finding</strong><span>What a result looks like, with its fix.</span></a>
+              <a class="mega-link" href="#architecture"><strong>Architecture-agnostic design</strong><span>Representative project shapes, not one stack.</span></a>
+            </div>
+          </div>
+          <div class="mega-panel" data-panel="docs" hidden>
+            <div class="mega-grid">
+              <a class="mega-link" href="#docs/quickstart"><strong>Quickstart</strong><span>Run your first investigation in a few minutes.</span></a>
+              <a class="mega-link" href="#api"><strong>API reference</strong><span>Endpoints for analyses, findings and projects.</span></a>
+              <a class="mega-link" href="#docs/rules"><strong>Rule catalog</strong><span>What each category checks, and how severity is set.</span></a>
+            </div>
+          </div>
+          <div class="mega-panel" data-panel="about" hidden>
+            <div class="mega-grid">
+              <a class="mega-link" href="#architecture"><strong>Our approach</strong><span>Evidence first. We report what we observe and how sure we are.</span></a>
+              <a class="mega-link" href="#about"><strong>About</strong><span>What NEXUS INSPECT is and how it is built.</span></a>
+              <a class="mega-link" href="#about"><strong>Feedback</strong><span>Questions and suggestions go to the project repository.</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="global-scroll-progress" id="globalScrollProgress" aria-hidden="true"></div>
+
+  <div class="mobile-sheet" id="mobileSheet">
+    <a href="#home">Home</a>
+    <a href="#showcase">Investigation showcase</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#how">How It Works</a>
+    <a href="#evidence">Evidence</a>
+    <a href="#overview">Dashboard</a>
+  </div>
+
+  <main id="hmMain">
+    <!-- Section 1: Hero -->
+    <section class="hm-hero" id="home" aria-labelledby="heroTitle">
+      <div class="hm-wrap">
+        <p class="hm-eyebrow hm-hero-eyebrow reveal" style="--d:0ms"><span class="hm-live-dot" aria-hidden="true"></span>Repository investigation</p>
+        <h1 class="hm-title hm-hero-title reveal" id="heroTitle" aria-label="Find what your code is hiding.">
+          <span class="hm-hero-line"><span class="hm-hero-word" style="--wi:0">Find</span> <span class="hm-hero-word" style="--wi:1">what</span> <span class="hm-hero-word" style="--wi:2">your</span> <span class="hm-hero-word" style="--wi:3">code</span></span>
+          <span class="hm-hero-line hm-hero-line-muted"><span class="hm-hero-word" style="--wi:4">is</span> <span class="hm-hero-word" style="--wi:5">hiding.</span></span>
+        </h1>
+        <div class="hm-hero-body">
+          <div class="hm-hero-copy">
+            <p class="hm-lead reveal" id="heroLead" style="--d:260ms">NEXUS INSPECT traces security weaknesses, AI-generated implementation slop, coding gaps and unfinished work through your actual files. Every finding names its rule, file, line range and evidence.</p>
+            <div class="hm-cta reveal" id="heroCta" style="--d:380ms">
+              <a class="btn btn-primary" href="#signup">Get Started</a>
+              <a class="btn btn-ghost" href="#analyze">Analyze a repository</a>
+            </div>
+          </div>
+          <ul class="hm-categories reveal" aria-label="What NEXUS INSPECT checks" style="--d:460ms">
+            <li><span class="hm-cat-id">SEC</span><span>Security weaknesses</span></li>
+            <li><span class="hm-cat-id">SLOP</span><span>AI-generated slop</span></li>
+            <li><span class="hm-cat-id">GAP</span><span>Coding gaps</span></li>
+            <li><span class="hm-cat-id">LOOSE</span><span>Unfinished work</span></li>
+          </ul>
+        </div>
+
+        <div class="hm-panel-wrap reveal" id="heroPanelWrap" style="--d:520ms">
+          <div class="hm-window">
+            <div class="hm-window-bar" aria-hidden="true">
+              <span class="hm-dots"><i></i><i></i><i></i></span>
+              <span class="hm-window-title">sample-shop-api</span>
+              <span class="hm-window-tag">illustrative walkthrough</span>
+            </div>
+          <div id="showcase"></div>
+          <div class="hm-stage" id="showStage" data-state="idle">
+            <aside class="hm-explorer" aria-label="Files">
+              <div class="hm-pane-title">Explorer</div>
+              <ul class="hm-tree" id="showTree"></ul>
+            </aside>
+            <div class="hm-editor">
+              <div class="hm-pane-title">
+                <span id="showFile">Select a file</span>
+                <button class="hm-replay" id="showReplay" type="button">Replay</button>
+              </div>
+              <div class="hm-scanline" id="showScanline" aria-hidden="true"></div>
+              <pre class="hm-code" id="showCode" aria-label="Sample source under inspection"></pre>
+            </div>
+            <aside class="hm-findings" aria-label="Findings">
+              <div class="hm-pane-title">Findings <span class="hm-count" id="showCount">0</span></div>
+              <div class="hm-counts" id="showCounts"></div>
+              <ol class="hm-list" id="showList"></ol>
+              <div class="hm-detail" id="showDetail" aria-live="polite"></div>
+            </aside>
+          </div>
+          </div>
+          <p class="hm-sample"><span class="hm-badge">Illustrative sample</span> This scripted walk-through uses invented data for demonstration. Run an analysis in the dashboard for real repository results.</p>
+        </div>
+      </div>
+      <div class="hm-hero-bg" aria-hidden="true"></div>
+    </section>
+
+    <!-- Section 2: Statement -->
+    <section class="hm-statement-section" id="statement" aria-label="Product statement">
+      <div class="hm-wrap">
+        <p class="hm-statement-text reveal" id="statementText"><span class="w" style="--wi:0">We</span> <span class="w" style="--wi:1">investigate</span> <span class="w" style="--wi:2">repository</span> <span class="w" style="--wi:3">evidence</span> <span class="w" style="--wi:4">—</span> <span class="w hl" style="--wi:5">real files,</span> <span class="w hl" style="--wi:6">real lines,</span> <span class="w" style="--wi:7">and</span> <span class="w hl" style="--wi:8">concrete fixes</span> <span class="w" style="--wi:9">—</span> <span class="w" style="--wi:10">without</span> <span class="w" style="--wi:11">guesswork.</span></p>
+      </div>
+    </section>
+
+    <!-- Section 3: Four Categories -->
+    <section class="hm-section hm-cap" id="capabilities" aria-labelledby="capTitle">
+      <div class="hm-wrap hm-cap-layout">
+        <div class="hm-cap-head">
+          <p class="hm-eyebrow reveal">Detection taxonomy</p>
+          <h2 class="hm-h2 reveal" id="capTitle">Four kinds of problem, one evidence trail</h2>
+          <p class="hm-sub reveal">NEXUS INSPECT correlates issues across the codebase rather than treating files in isolation.</p>
+        </div>
+        <ol class="hm-cap-list" id="capabilitiesGrid">
+          <li class="hm-cap-row reveal" style="--d:0ms">
+            <span class="hm-cap-id">SEC</span>
+            <div class="hm-cap-main">
+              <h3>Security intelligence</h3>
+              <p>Hardcoded secrets, exposed private keys, SQL injection patterns and sensitive endpoints registered without authorization middleware.</p>
+            </div>
+            <div class="hm-card-rules">
+              <span class="rule-tag">SEC-SECRET-001</span>
+              <span class="rule-tag">SEC-SECRET-003</span>
+              <span class="rule-tag">SEC-SQL-001</span>
+              <span class="rule-tag">SEC-AUTHZ-001</span>
+            </div>
+          </li>
+          <li class="hm-cap-row reveal" style="--d:120ms">
+            <span class="hm-cap-id">SLOP</span>
+            <div class="hm-cap-main">
+              <h3>AI slop detection</h3>
+              <p>Placeholder implementations, functions returning success without doing work, and hallucinated logic that does not match its signature.</p>
+            </div>
+            <div class="hm-card-rules">
+              <span class="rule-tag">SLOP-STUB-001</span>
+              <span class="rule-tag">LOOSE-STUB-001</span>
+            </div>
+          </li>
+          <li class="hm-cap-row reveal" style="--d:240ms">
+            <span class="hm-cap-id">GAP</span>
+            <div class="hm-cap-main">
+              <h3>Coding gap analysis</h3>
+              <p>Request inputs used without boundary validation, swallowed exception blocks, unhandled network failures, and broken relative imports.</p>
+            </div>
+            <div class="hm-card-rules">
+              <span class="rule-tag">GAP-VALID-001</span>
+              <span class="rule-tag">GAP-ERR-001</span>
+              <span class="rule-tag">GAP-ERR-002</span>
+              <span class="rule-tag">GAP-INTEG-001</span>
+            </div>
+          </li>
+          <li class="hm-cap-row reveal" style="--d:360ms">
+            <span class="hm-cap-id">LOOSE</span>
+            <div class="hm-cap-main">
+              <h3>Loose-end discovery</h3>
+              <p>Unresolved TODO and FIXME markers, unreachable code after returns, declared dependencies never imported, and orphan modules.</p>
+            </div>
+            <div class="hm-card-rules">
+              <span class="rule-tag">LOOSE-TODO-001</span>
+              <span class="rule-tag">LOOSE-DEAD-001</span>
+              <span class="rule-tag">LOOSE-DEP-001</span>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Section 4: How It Works -->
+    <section class="hm-section hm-how-section" id="how" aria-labelledby="howTitle">
+      <div id="architecture"></div>
+      <div class="hm-wrap hm-how-layout" id="howLayout">
+        <div class="hm-how-pinned" id="howPinned">
+          <p class="hm-eyebrow reveal">Pipeline architecture</p>
+          <h2 class="hm-h2 reveal" id="howTitle">How it works</h2>
+          <div class="hm-how-current reveal">
+            <div class="hm-how-num" id="howActiveNum">01</div>
+            <div class="hm-how-active-title" id="howActiveTitle">Submit a repository</div>
+          </div>
+          <div class="hm-how-progress-wrap reveal" aria-hidden="true">
+            <div class="hm-how-progress-bar" id="howProgressBar">
+              <div class="hm-how-progress-fill" id="howProgressFill"></div>
+            </div>
+            <div class="hm-how-markers" id="howMarkers">
+              <span class="hm-how-marker active" data-step="0"></span>
+              <span class="hm-how-marker" data-step="1"></span>
+              <span class="hm-how-marker" data-step="2"></span>
+              <span class="hm-how-marker" data-step="3"></span>
+              <span class="hm-how-marker" data-step="4"></span>
+            </div>
+          </div>
+        </div>
+        <div class="hm-how-steps" id="howSteps">
+          <div class="hm-how-step reveal" data-step-idx="0">
+            <div class="hm-how-step-header">
+              <span class="hm-how-step-badge mono">01</span>
+              <h3>Submit a repository</h3>
+            </div>
+            <p>Point NEXUS at any public GitHub repository URL or upload a ZIP archive up to 25 MB.</p>
+          </div>
+          <div class="hm-how-step reveal" data-step-idx="1">
+            <div class="hm-how-step-header">
+              <span class="hm-how-step-badge mono">02</span>
+              <h3>Scan files against rules</h3>
+            </div>
+            <p>Deterministic AST and regex inspection engines analyze syntax, configuration, and dependencies in parallel.</p>
+          </div>
+          <div class="hm-how-step reveal" data-step-idx="2">
+            <div class="hm-how-step-header">
+              <span class="hm-how-step-badge mono">03</span>
+              <h3>Correlate and score</h3>
+            </div>
+            <p>Correlate imported dependencies, route hierarchies, and assign calibrated risk and confidence scores.</p>
+          </div>
+          <div class="hm-how-step reveal" data-step-idx="3">
+            <div class="hm-how-step-header">
+              <span class="hm-how-step-badge mono">04</span>
+              <h3>Review with evidence</h3>
+            </div>
+            <p>Inspect exact file locations, line ranges, redacted source excerpts, and concrete remediation steps.</p>
+          </div>
+          <div class="hm-how-step reveal" data-step-idx="4">
+            <div class="hm-how-step-header">
+              <span class="hm-how-step-badge mono">05</span>
+              <h3>Export reports</h3>
+            </div>
+            <p>Download reproducible investigation reports as JSON, Markdown or SARIF 2.1.0 for CI/CD pipelines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Evidence Showcase -->
+    <section class="hm-section" id="evidence" aria-labelledby="evTitle">
+      <div class="hm-wrap">
+        <p class="hm-eyebrow reveal">Definitive proof</p>
+        <h2 class="hm-h2 reveal" id="evTitle">Evidence first</h2>
+        <p class="hm-sub reveal">Every finding names a rule, a file, a line range and a redacted excerpt, with severity, confidence, remediation and verification steps.</p>
+        <div class="hm-evidence-card reveal" id="evidenceCard">
+          <div class="hm-ev-meta">
+            <div class="hm-ev-row">
+              <span class="sev high">High</span>
+              <strong class="mono" style="color:var(--text)">SEC-SQL-001</strong>
+              <span class="mono muted">· confidence 85%</span>
+            </div>
+            <div>
+              <strong style="color:var(--text);font-size:16px">SQL statement built by string concatenation</strong>
+              <p style="color:var(--text2);font-size:14px;margin-top:6px">Untrusted input placed into the query text can alter SQL execution (SQL injection).</p>
+            </div>
+            <div class="hm-ev-row">
+              <span class="mono muted">src/db/users.js:2</span>
+              <span class="mono" style="color:var(--red)">[CONFIRMED HIT]</span>
+            </div>
+            <div class="hm-ev-remediation">
+              <strong>Remediation:</strong>
+              Use parameterized queries or a query builder; never join user input into SQL strings.
+            </div>
+          </div>
+          <div>
+            <pre class="hm-ev-code"><code>// src/db/users.js
+export function findUser(email) {
+<span class="hit">  return db.query("SELECT * FROM users WHERE email = '" + email + "'");</span>
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Repository Investigation Workspace (illustrative sample repository) -->
+    <section class="hm-section" id="investigation" aria-labelledby="invTitle">
+      <div class="hm-wrap">
+        <p class="hm-eyebrow reveal">Root-cause correlation</p>
+        <h2 class="hm-h2 reveal" id="invTitle">Follow a finding back to its source</h2>
+        <p class="hm-sub reveal">NEXUS traces how a problem moves through routes, controllers and queries, and groups findings that share a root cause.</p>
+        <div class="inv-ws reveal" id="invWorkspace">
+          <div class="inv-ws-bar">
+            <span class="mono">sample-shop-api</span>
+            <span class="hm-badge">Illustrative sample</span>
+          </div>
+          <div class="inv-ws-grid">
+            <aside class="inv-pane inv-tree-pane" aria-label="Sample repository files">
+              <div class="inv-title">Explorer</div>
+              <ul class="inv-tree">
+                <li class="inv-dir">src/routes</li>
+                <li><button type="button" class="inv-file" data-file="src/routes/auth.js" style="--i:1" aria-pressed="false">auth.js<span class="inv-dot" aria-hidden="true"></span></button></li>
+                <li><button type="button" class="inv-file" data-file="src/routes/profile.js" style="--i:1" aria-pressed="false">profile.js<span class="inv-dot has" aria-label="has findings"></span></button></li>
+                <li class="inv-dir">src/controllers</li>
+                <li><button type="button" class="inv-file" data-file="src/controllers/users.js" style="--i:1" aria-pressed="false">users.js<span class="inv-dot" aria-hidden="true"></span></button></li>
+                <li><button type="button" class="inv-file" data-file="src/controllers/profile.js" style="--i:1" aria-pressed="false">profile.js<span class="inv-dot" aria-hidden="true"></span></button></li>
+                <li class="inv-dir">src/db</li>
+                <li><button type="button" class="inv-file" data-file="src/db/users.js" style="--i:1" aria-pressed="true">users.js<span class="inv-dot has" aria-label="has findings"></span></button></li>
+                <li class="inv-dir">src/utils</li>
+                <li><button type="button" class="inv-file" data-file="src/utils/slugify.js" style="--i:1" aria-pressed="false">slugify.js<span class="inv-dot has" aria-label="has findings"></span></button></li>
+              </ul>
+            </aside>
+
+            <div class="inv-pane inv-code-pane">
+              <div class="inv-title"><span class="mono" id="invPath">src/db/users.js</span></div>
+
+              <pre class="inv-code" data-file="src/routes/auth.js" hidden><span class="inv-line" data-n="1"><span class="inv-n">1</span><span class="tk-k">const</span> express = <span class="tk-f">require</span>(<span class="tk-s">'express'</span>);</span><span class="inv-line" data-n="2"><span class="inv-n">2</span><span class="tk-k">const</span> UserController = <span class="tk-f">require</span>(<span class="tk-s">'../controllers/users'</span>);</span><span class="inv-line" data-n="3"><span class="inv-n">3</span></span><span class="inv-line" data-n="4"><span class="inv-n">4</span><span class="tk-k">const</span> router = express.Router();</span><span class="inv-line" data-n="5"><span class="inv-n">5</span></span><span class="inv-line" data-n="6"><span class="inv-n">6</span>router.<span class="tk-f">post</span>(<span class="tk-s">'/login'</span>, <span class="tk-k">async</span> (req, res) =&gt; {</span><span class="inv-line" data-n="7"><span class="inv-n">7</span>  <span class="tk-k">const</span> { email, password } = req.body;</span><span class="inv-line trace" data-n="8"><span class="inv-n">8</span>  <span class="tk-k">const</span> user = <span class="tk-k">await</span> UserController.<span class="tk-f">findByEmail</span>(req.body.email);</span><span class="inv-line" data-n="9"><span class="inv-n">9</span>  <span class="tk-k">if</span> (!user || !<span class="tk-f">verify</span>(password, user.hash)) {</span><span class="inv-line" data-n="10"><span class="inv-n">10</span>    <span class="tk-k">return</span> res.<span class="tk-f">status</span>(401).<span class="tk-f">json</span>({ error: <span class="tk-s">'invalid credentials'</span> });</span><span class="inv-line" data-n="11"><span class="inv-n">11</span>  }</span><span class="inv-line" data-n="12"><span class="inv-n">12</span>  res.<span class="tk-f">json</span>({ token: <span class="tk-f">issueToken</span>(user) });</span><span class="inv-line" data-n="13"><span class="inv-n">13</span>});</span></pre>
+
+              <pre class="inv-code" data-file="src/controllers/users.js" hidden><span class="inv-line" data-n="1"><span class="inv-n">1</span><span class="tk-k">const</span> db = <span class="tk-f">require</span>(<span class="tk-s">'../db/users'</span>);</span><span class="inv-line" data-n="2"><span class="inv-n">2</span></span><span class="inv-line trace" data-n="3"><span class="inv-n">3</span><span class="tk-k">async function</span> <span class="tk-f">findByEmail</span>(email) {</span><span class="inv-line trace" data-n="4"><span class="inv-n">4</span>  <span class="tk-k">return</span> db.<span class="tk-f">findUserByEmail</span>(email);</span><span class="inv-line" data-n="5"><span class="inv-n">5</span>}</span><span class="inv-line" data-n="6"><span class="inv-n">6</span></span><span class="inv-line" data-n="7"><span class="inv-n">7</span><span class="tk-k">module.exports</span> = { findByEmail };</span></pre>
+
+              <pre class="inv-code" data-file="src/db/users.js"><span class="inv-line" data-n="1"><span class="inv-n">1</span><span class="tk-k">const</span> pool = <span class="tk-f">require</span>(<span class="tk-s">'./pool'</span>);</span><span class="inv-line" data-n="2"><span class="inv-n">2</span></span><span class="inv-line" data-n="3"><span class="inv-n">3</span><span class="tk-c">// Look up a user for login</span></span><span class="inv-line" data-n="4"><span class="inv-n">4</span><span class="tk-k">async function</span> <span class="tk-f">findUserByEmail</span>(email) {</span><span class="inv-line hit" data-n="5"><span class="inv-n">5</span>  <span class="tk-k">const</span> sql = <span class="tk-s">"SELECT id, email, hash FROM users WHERE email = '"</span> + email + <span class="tk-s">"'"</span>;</span><span class="inv-line hit" data-n="6"><span class="inv-n">6</span>  <span class="tk-k">const</span> { rows } = <span class="tk-k">await</span> pool.<span class="tk-f">query</span>(sql);</span><span class="inv-line" data-n="7"><span class="inv-n">7</span>  <span class="tk-k">return</span> rows[0] || <span class="tk-k">null</span>;</span><span class="inv-line" data-n="8"><span class="inv-n">8</span>}</span></pre>
+
+              <pre class="inv-code" data-file="src/routes/profile.js" hidden><span class="inv-line" data-n="1"><span class="inv-n">1</span><span class="tk-k">const</span> express = <span class="tk-f">require</span>(<span class="tk-s">'express'</span>);</span><span class="inv-line" data-n="2"><span class="inv-n">2</span><span class="tk-k">const</span> router = express.Router();</span><span class="inv-line" data-n="3"><span class="inv-n">3</span><span class="tk-k">const</span> { updateProfile } = <span class="tk-f">require</span>(<span class="tk-s">'../controllers/profile'</span>);</span><span class="inv-line" data-n="4"><span class="inv-n">4</span></span><span class="inv-line" data-n="5"><span class="inv-n">5</span>router.<span class="tk-f">patch</span>(<span class="tk-s">'/profile'</span>, requireAuth, <span class="tk-k">async</span> (req, res) =&gt; {</span><span class="inv-line" data-n="6"><span class="inv-n">6</span>  <span class="tk-k">const</span> { displayName, bio } = req.body;</span><span class="inv-line hit" data-n="7"><span class="inv-n">7</span>  <span class="tk-k">await</span> <span class="tk-f">updateProfile</span>(req.user.id, { displayName, bio });</span><span class="inv-line" data-n="8"><span class="inv-n">8</span>  res.status(204).end();</span><span class="inv-line" data-n="9"><span class="inv-n">9</span>});</span></pre>
+
+              <pre class="inv-code" data-file="src/controllers/profile.js" hidden><span class="inv-line" data-n="1"><span class="inv-n">1</span><span class="tk-k">const</span> db = <span class="tk-f">require</span>(<span class="tk-s">'../db/profile'</span>);</span><span class="inv-line" data-n="2"><span class="inv-n">2</span></span><span class="inv-line" data-n="3"><span class="inv-n">3</span><span class="tk-k">async function</span> <span class="tk-f">updateProfile</span>(userId, fields) {</span><span class="inv-line trace" data-n="4"><span class="inv-n">4</span>  <span class="tk-k">await</span> db.<span class="tk-f">updateProfileFields</span>(userId, fields);</span><span class="inv-line" data-n="5"><span class="inv-n">5</span>}</span><span class="inv-line" data-n="6"><span class="inv-n">6</span><span class="tk-k">module.exports</span> = { updateProfile };</span></pre>
+
+              <pre class="inv-code" data-file="src/utils/slugify.js" hidden><span class="inv-line" data-n="1"><span class="inv-n">1</span><span class="tk-c">// Converts a title into a URL slug.</span></span><span class="inv-line hit" data-n="2"><span class="inv-n">2</span><span class="tk-k">function</span> <span class="tk-f">slugify</span>(title) {</span><span class="inv-line hit" data-n="3"><span class="inv-n">3</span>  <span class="tk-k">return</span> title.<span class="tk-f">toLowerCase</span>().<span class="tk-f">trim</span>().<span class="tk-f">replace</span>(<span class="tk-s">/[^a-z0-9]+/g</span>, <span class="tk-s">'-'</span>).<span class="tk-f">replace</span>(<span class="tk-s">/^-|-$/g</span>, <span class="tk-s">''</span>);</span><span class="inv-line" data-n="4"><span class="inv-n">4</span>}</span><span class="inv-line" data-n="5"><span class="inv-n">5</span><span class="tk-k">module.exports</span> = { slugify };</span></pre>
+            </div>
+
+            <aside class="inv-pane inv-rel-pane" aria-label="Findings and relationships" aria-live="polite">
+              <div class="inv-title">Findings <span class="inv-count">3</span></div>
+              <div class="inv-findex">
+                <button type="button" class="inv-fbtn" data-finding="sec-sql" aria-pressed="true"><span class="mono inv-fid">SEC-SQL-001</span><span class="inv-fname">SQL built by string concatenation</span><span class="inv-sev high">High</span></button>
+                <button type="button" class="inv-fbtn" data-finding="gap-val" aria-pressed="false"><span class="mono inv-fid">GAP-VAL-003</span><span class="inv-fname">Request body written without validation</span><span class="inv-sev">Medium</span></button>
+                <button type="button" class="inv-fbtn" data-finding="slop-dup" aria-pressed="false"><span class="mono inv-fid">SLOP-DUP-002</span><span class="inv-fname">Duplicate helper with the same logic</span><span class="inv-sev">Low</span></button>
+              </div>
+
+              <article class="inv-finding" data-finding="sec-sql" data-file="src/db/users.js" data-line="5">
+                <div class="inv-f-meta">
+                  <span class="inv-sev high">High severity</span>
+                  <span class="inv-conf" aria-label="High confidence">High confidence</span>
+                </div>
+                <h4 class="inv-sub">Relationship trace</h4>
+                <ol class="inv-chain">
+                  <li><button type="button" class="inv-step" data-file="src/routes/auth.js" data-line="8"><span class="mono">src/routes/auth.js:8</span> POST /login reads the email from the request</button></li>
+                  <li><button type="button" class="inv-step" data-file="src/controllers/users.js" data-line="4"><span class="mono">src/controllers/users.js:4</span> findByEmail passes the value on</button></li>
+                  <li><button type="button" class="inv-step" data-file="src/db/users.js" data-line="5"><span class="mono">src/db/users.js:5</span> the query text includes the raw value</button></li>
+                  <li class="inv-step-end"><span class="mono">SEC-SQL-001</span> raised on this query</li>
+                </ol>
+                <h4 class="inv-sub">Evidence</h4>
+                <p class="inv-text">The email value is joined into the SQL string, so quote characters in the input change the query. Remediation: pass the value as a bound parameter. Verification: rerun the rule and confirm the query uses a placeholder.</p>
+                <h4 class="inv-sub">Shared root cause</h4>
+                <button type="button" class="inv-related" data-finding="gap-val"><span>Unvalidated request input reaches a write or query</span><span class="mono">GAP-VAL-003</span></button>
+              </article>
+
+              <article class="inv-finding" data-finding="gap-val" data-file="src/routes/profile.js" data-line="7" hidden>
+                <div class="inv-f-meta">
+                  <span class="inv-sev">Medium severity</span>
+                  <span class="inv-conf" aria-label="Medium confidence">Medium confidence</span>
+                </div>
+                <h4 class="inv-sub">Relationship trace</h4>
+                <ol class="inv-chain">
+                  <li><button type="button" class="inv-step" data-file="src/routes/profile.js" data-line="7"><span class="mono">src/routes/profile.js:7</span> PATCH /profile passes the body fields through</button></li>
+                  <li><button type="button" class="inv-step" data-file="src/controllers/profile.js" data-line="4"><span class="mono">src/controllers/profile.js:4</span> updateProfile forwards them unchanged</button></li>
+                  <li class="inv-step-end"><span class="mono">GAP-VAL-003</span> raised: no length or type check before the write</li>
+                </ol>
+                <h4 class="inv-sub">Evidence</h4>
+                <p class="inv-text">displayName and bio are stored without length or type checks. Remediation: validate both fields at the route boundary before calling the controller.</p>
+                <h4 class="inv-sub">Shared root cause</h4>
+                <button type="button" class="inv-related" data-finding="sec-sql"><span>Unvalidated request input reaches a write or query</span><span class="mono">SEC-SQL-001</span></button>
+              </article>
+
+              <article class="inv-finding" data-finding="slop-dup" data-file="src/utils/slugify.js" data-line="2" hidden>
+                <div class="inv-f-meta">
+                  <span class="inv-sev">Low severity</span>
+                  <span class="inv-conf" aria-label="High confidence">High confidence</span>
+                </div>
+                <h4 class="inv-sub">Relationship trace</h4>
+                <ol class="inv-chain">
+                  <li><button type="button" class="inv-step" data-file="src/utils/slugify.js" data-line="2"><span class="mono">src/utils/slugify.js:2</span> slugify contains the same steps as toSlug</button></li>
+                  <li class="inv-step-end"><span class="mono">SLOP-DUP-002</span> raised: duplicate logic, no shared helper</li>
+                </ol>
+                <h4 class="inv-sub">Evidence</h4>
+                <p class="inv-text">The regular expressions and chained calls match an existing helper almost line for line. Remediation: keep one helper and import it from both places.</p>
+              </article>
+            </aside>
+          </div>
+        </div>
+        <p class="hm-graph-caption"><span class="hm-badge">Illustrative</span> sample-shop-api is an invented repository. Its findings and file contents were written for this demonstration and were not produced by a scan.</p>
+      </div>
+    </section>
+
+    <!-- Section 7: Export & Trust Strip -->
+    <section class="hm-section hm-exports" id="exports" aria-labelledby="expTitle">
+      <div class="hm-wrap hm-exp-layout">
+        <div class="hm-exp-head">
+          <p class="hm-eyebrow reveal">Portability &amp; CI/CD</p>
+          <h2 class="hm-h2 reveal" id="expTitle">Export and trust</h2>
+        </div>
+        <ul class="hm-export-rows" id="exportsTrack">
+          <li class="hm-export-row reveal" style="--d:0ms">
+            <span class="hm-export-fmt">JSON</span>
+            <div><h3>Structured Schema</h3><p>Complete investigation payload with analysis ID, repository metadata, finding taxonomy, and line ranges.</p></div>
+          </li>
+          <li class="hm-export-row reveal" style="--d:120ms">
+            <span class="hm-export-fmt">Markdown</span>
+            <div><h3>Executive Summary</h3><p>Formatted markdown document with risk totals, category breakdown tables, and copyable remediations.</p></div>
+          </li>
+          <li class="hm-export-row reveal" style="--d:240ms">
+            <span class="hm-export-fmt">SARIF 2.1.0</span>
+            <div><h3>OASIS Standard</h3><p>Industry standard Static Analysis Results Interchange Format for GitHub Code Scanning and IDE tools.</p></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section 8: Limits ("What this does not do") -->
+    <section class="hm-section hm-limits" id="limits" aria-labelledby="limitsTitle">
+      <div class="hm-wrap hm-limits-layout">
+        <div class="hm-limits-head">
+          <p class="hm-eyebrow reveal">Engineering honesty</p>
+          <h2 class="hm-h2 reveal" id="limitsTitle">What this does not do</h2>
+        </div>
+        <ul class="hm-limits-list">
+          <li class="hm-limit-item reveal" style="--d:0ms">
+            <span class="hm-cat-id">NOT</span>
+            <div><strong>Deterministic rule-based detection</strong><p>Rules identify concrete syntactic patterns and known vulnerability shapes. They cannot evaluate runtime business logic or guarantee zero false negatives.</p></div>
+          </li>
+          <li class="hm-limit-item reveal" style="--d:120ms">
+            <span class="hm-cat-id">NOT</span>
+            <div><strong>Calibrated confidence scores</strong><p>Scores reflect AST pattern strength and test calibration, not an exploitability guarantee. Findings serve as prioritized investigation evidence.</p></div>
+          </li>
+          <li class="hm-limit-item reveal" style="--d:240ms">
+            <span class="hm-cat-id">NOT</span>
+            <div><strong>No claims of AI authorship</strong><p>NEXUS does not claim to detect AI code by style or guess author intent. We report only what the source code visibly contains.</p></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section 9: Final Call to Action -->
+    <section class="hm-section hm-final" id="about" aria-labelledby="finalTitle">
+      <div class="hm-wrap hm-final-inner">
+        <div class="hm-final-copy">
+          <h2 class="hm-title reveal" id="finalTitle">Start with one repository.</h2>
+          <p class="hm-lead reveal" style="--d:200ms">Import it, run the investigation and read the evidence for each finding.</p>
+        </div>
+        <div class="hm-cta reveal" style="--d:320ms">
+          <a class="btn btn-primary" href="#signup">Get Started</a>
+          <a class="btn btn-ghost" href="#docs/introduction">Read documentation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 10: Footer -->
+    <footer class="hm-foot">
+      <div class="hm-wrap hm-foot-grid">
+        <div class="hm-foot-brand">
+          <span class="mono hm-foot-name">NEXUS. INSPECT</span>
+          <p>Evidence first. Findings are reproducible from the rules in the repository.</p>
+        </div>
+        <nav class="hm-foot-col" aria-label="Documentation">
+          <span class="hm-foot-h">Documentation</span>
+          <a href="#docs/introduction">Documentation</a>
+          <a href="#docs/quickstart">Quickstart</a>
+          <a href="#api">API reference</a>
+          <a href="#docs/rules">Rule catalog</a>
+        </nav>
+        <nav class="hm-foot-col" aria-label="Account">
+          <span class="hm-foot-h">Account</span>
+          <a href="#signin">Sign in</a>
+          <a href="#signup">Create account</a>
+          <a href="#analyze" id="footerDashLink">Dashboard</a>
+        </nav>
+        <nav class="hm-foot-col" aria-label="Trust">
+          <span class="hm-foot-h">Trust</span>
+          <a href="#docs/privacy">Security and privacy</a>
+          <a href="#docs/limitations">Limitations</a>
+        </nav>
+      </div>
+      <div class="hm-wrap hm-foot-base">
+        <span class="mono">Sample repositories and walkthroughs on this page use invented data and are labelled as illustrative.</span>
+      </div>
+    </footer>
+    </main>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div id="dash" hidden>
+  <header class="dash-top">
+    <a class="brand" href="#home" aria-label="Back to home">NEXUS.</a>
+    <div class="capsule-wrap">
+      <nav class="capsule" id="capsule" aria-label="Dashboard">
+        <span class="capsule-ind" id="capsuleInd" aria-hidden="true"></span>
+        <a class="capsule-link" href="#overview" data-view="overview">Overview</a>
+        <a class="capsule-link" href="#analyze" data-view="analyze">Analyze</a>
+        <a class="capsule-link" href="#findings" data-view="findings">Findings</a>
+        <a class="capsule-link" href="#projects" data-view="projects">Projects</a>
+        <a class="capsule-link" href="#reports" data-view="reports">Reports</a>
+      </nav>
+    </div>
+    <div class="top-actions">
+      <span class="conn" id="connStatus" role="status" aria-live="polite"><i aria-hidden="true"></i><span>Checking server</span></span>
+      <div class="profile" id="profile">
+        <button class="profile-btn" id="profileBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="profileMenu" aria-label="Account menu" hidden>
+          <span id="profileInitials">··</span>
+        </button>
+        <div class="profile-menu" id="profileMenu" role="menu" hidden>
+          <div class="profile-who">
+            <strong id="profileName"></strong>
+            <span class="mono muted" id="profileEmail"></span>
+          </div>
+          <button class="profile-item" type="button" role="menuitem" id="profileDetailsBtn" aria-expanded="false" aria-controls="profileDetails">Account details</button>
+          <div class="profile-details" id="profileDetails" hidden>
+            <span>Member since <span class="mono" id="profileSince">—</span></span>
+          </div>
+          <button class="profile-item profile-danger" type="button" role="menuitem" id="signOutBtn">Sign out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Analysis island: driven by real analysis.* and finding.* events; idle shows the live connection state. -->
+  <div class="island" id="island" data-state="idle" role="status" aria-live="polite">
+    <div class="island-core">
+      <span class="island-dot" aria-hidden="true"></span>
+      <div class="island-text">
+        <strong id="islandTitle">Live updates</strong>
+        <span class="mono muted" id="islandSub">Connecting to the event stream</span>
+      </div>
+      <span class="island-count mono" id="islandCount" hidden></span>
+      <button class="btn small island-action" type="button" id="islandAction" hidden>Open</button>
+    </div>
+    <div class="island-track" aria-hidden="true"><i></i></div>
+  </div>
+
+  <main class="dash-main">
+
+    <!-- Overview -->
+    <section class="view" data-view="overview">
+      <h1 class="page-title">Overview</h1>
+      <p class="page-sub" id="ovSub">Results from the server's stored analyses.</p>
+      <div class="grid-4">
+        <div class="panel"><div class="stat-label">Projects</div><div class="stat-num" id="ovRepos">0</div><div class="stat-foot">repositories imported</div></div>
+        <div class="panel"><div class="stat-label">Analyses</div><div class="stat-num" id="ovAnalyses">0</div><div class="stat-foot" id="ovAnalysesFoot">none yet</div></div>
+        <div class="panel"><div class="stat-label">Findings</div><div class="stat-num" id="ovFindings">0</div><div class="stat-foot" id="ovFindingsFoot">latest completed analysis</div></div>
+        <div class="panel health-panel">
+          <div class="ring" aria-label="Heuristic code health score">
+            <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="val" id="ringVal" cx="60" cy="60" r="52"/></svg>
+            <div class="num" id="ovHealthNum">&mdash;</div>
+          </div>
+          <div><div class="stat-label">Health score</div><div class="stat-foot">heuristic: 100 minus weighted counts</div></div>
+        </div>
+      </div>
+      <div class="grid-2 gap-block ov-grid">
+        <div class="panel">
+          <div class="section-label">Severity distribution</div>
+          <div class="sev-bars" id="ovSev"></div>
+        </div>
+        <div class="panel">
+          <div class="section-label">By category</div>
+          <div class="cat-grid" id="ovCats"></div>
+          <div class="gap-block" style="margin-top:22px"><div class="section-label">Recent analyses</div><div id="ovRecent"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analyze -->
+    <section class="view" data-view="analyze">
+      <h1 class="page-title">Analyze</h1>
+      <p class="page-sub">Import a public GitHub repository or upload a ZIP archive. The server fetches, extracts and scans it; the stages shown are the real pipeline stages.</p>
+      <div class="analyze-grid">
+        <div class="panel form-stack">
+          <form id="analyzeForm" novalidate>
+            <div class="field">
+              <label for="analyzeUrl">GitHub repository URL</label>
+              <div class="row">
+                <input id="analyzeUrl" type="text" placeholder="github.com/owner/repo" autocomplete="off" aria-describedby="analyzeErr" style="flex:1">
+                <button class="btn btn-ghost btn-sm" type="button" id="checkBtn">Check</button>
+              </div>
+              <div class="field-error" id="analyzeErr" role="alert"></div>
+            </div>
+            <div class="field">
+              <label for="branch">Branch</label>
+              <select id="branch" disabled><option value="">Check the repository to list branches</option></select>
+              <p class="help" id="checkNote">Only public github.com repositories are accepted. Private repositories are not supported.</p>
+            </div>
+          </form>
+          <div class="or-rule"><span>or</span></div>
+          <form id="uploadForm" novalidate>
+            <div class="field">
+              <label for="zipFile">Upload a ZIP archive (max 25 MB)</label>
+              <input id="zipFile" type="file" accept=".zip,application/zip">
+              <div class="field-error" id="uploadErr" role="alert"></div>
+            </div>
+          </form>
+          <div class="row">
+            <button class="btn btn-primary" type="button" id="startBtn" disabled>Start analysis</button>
+            <button class="btn btn-ghost" type="button" id="cancelBtn" hidden>Cancel run</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="section-label">Investigation stages</div>
+          <div class="progress" aria-hidden="true"><i id="runProgress"></i></div>
+          <div class="run-status" id="runStatus" role="status" aria-live="polite">Nothing is running.</div>
+          <ol class="stages" id="stages"></ol>
+          <div class="run-error" id="runError" role="alert" hidden></div>
+          <div class="summary" id="summary" hidden>
+            <h3>Analysis complete</h3>
+            <p class="muted" id="sumNote" style="font-size:14px"></p>
+            <div class="grid-3" style="margin-top:16px">
+              <div><div class="stat-label">Critical</div><div class="stat-num" id="sumCritical" style="font-size:30px;color:var(--red)">0</div></div>
+              <div><div class="stat-label">High</div><div class="stat-num" id="sumHigh" style="font-size:30px">0</div></div>
+              <div><div class="stat-label">Total</div><div class="stat-num" id="sumTotal" style="font-size:30px">0</div></div>
+            </div>
+            <div class="row" style="margin-top:18px">
+              <button class="btn btn-light" id="viewFindingsBtn" type="button">View findings</button>
+              <button class="btn btn-ghost" id="viewReportBtn" type="button">Open report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Findings -->
+    <section class="view" data-view="findings">
+      <h1 class="page-title">Findings</h1>
+      <p class="page-sub" id="findSub">Choose a completed analysis to review its findings.</p>
+      <div class="toolbar">
+        <div class="row">
+          <div class="field"><label for="analysisPick">Analysis</label><select id="analysisPick"></select></div>
+          <div class="field search"><label for="findQ">Search findings</label><input id="findQ" type="search" placeholder="Search by title, file or rule" autocomplete="off"></div>
+          <div class="field"><label for="findStatus">Status</label>
+            <select id="findStatus">
+              <option value="">Any status</option><option value="open">Open</option><option value="confirmed">Confirmed</option>
+              <option value="false_positive">False positive</option><option value="suppressed">Suppressed</option><option value="fixed">Fixed</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" role="group" aria-label="Severity filter">
+          <button class="chip" data-sev-filter="all" aria-pressed="true">All severities</button>
+          <button class="chip" data-sev-filter="critical" aria-pressed="false">Critical</button>
+          <button class="chip" data-sev-filter="high" aria-pressed="false">High</button>
+          <button class="chip" data-sev-filter="medium" aria-pressed="false">Medium</button>
+          <button class="chip" data-sev-filter="low" aria-pressed="false">Low</button>
+        </div>
+        <div class="row" role="group" aria-label="Category filter">
+          <button class="chip" data-cat-filter="all" aria-pressed="true">All categories</button>
+          <button class="chip" data-cat-filter="security" aria-pressed="false">Security</button>
+          <button class="chip" data-cat-filter="slop" aria-pressed="false">AI slop</button>
+          <button class="chip" data-cat-filter="gap" aria-pressed="false">Coding gaps</button>
+          <button class="chip" data-cat-filter="loose" aria-pressed="false">Loose ends</button>
+        </div>
+      </div>
+      <div class="count" id="findCount" aria-live="polite"></div>
+      <div class="findings" id="findList"></div>
+    </section>
+
+    <!-- Projects -->
+    <section class="view" data-view="projects">
+      <h1 class="page-title">Projects</h1>
+      <p class="page-sub">Repositories imported into this server, with their analysis history.</p>
+      <div class="toolbar">
+        <div class="row">
+          <div class="field search"><label for="projQ">Search projects</label><input id="projQ" type="search" placeholder="Search by name or source" autocomplete="off"></div>
+        </div>
+      </div>
+      <div class="count" id="projCount"></div>
+      <div class="project-list" id="projList"></div>
+    </section>
+
+    <!-- Reports -->
+    <section class="view" data-view="reports">
+      <h1 class="page-title">Reports</h1>
+      <p class="page-sub">Export a completed analysis as JSON, Markdown or SARIF 2.1.0.</p>
+      <div class="spread" style="margin-bottom:24px">
+        <div class="field" style="min-width:260px"><label for="reportPick">Analysis</label><select id="reportPick"></select></div>
+        <div class="row">
+          <button class="btn btn-light btn-sm" id="repJson" type="button" data-format="json" aria-disabled="true" disabled>Download JSON</button>
+          <button class="btn btn-light btn-sm" id="repMd" type="button" data-format="markdown" aria-disabled="true" disabled>Download Markdown</button>
+          <button class="btn btn-light btn-sm" id="repSarif" type="button" data-format="sarif" aria-disabled="true" disabled>Download SARIF</button>
+        </div>
+      </div>
+      <div class="panel report" id="reportBody"><p class="muted">Select a completed analysis.</p></div>
+      <div class="row" style="margin-top:20px"><button class="btn btn-ghost btn-sm" id="togglePreview" aria-expanded="false" type="button">Show Markdown</button><button class="btn btn-ghost btn-sm" id="copyMd" type="button">Copy Markdown</button></div>
+      <pre class="code md-preview" id="mdPreview" tabindex="0" hidden></pre>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============ SHARED OVERLAYS ============ -->
+<div class="dim" id="dim" aria-hidden="true"></div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" aria-label="Details">
+  <button class="icon-btn close" id="drawerClose" aria-label="Close details">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div id="drawerBody"></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="auth.js"></script>
+<script src="docs.js"></script>
+<script src="app.js?v=10"></script>
+<script src="home.js?v=9"></script>
+<script src="live.js"></script>
+<script src="dash.js"></script>
+<script src="assistant.js"></script>
+</body>
+</html>

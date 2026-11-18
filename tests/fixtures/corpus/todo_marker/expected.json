@@ -1,0 +1,10 @@
+{
+  "description": "Comment marker is flagged; the word TODO inside a string is not.",
+  "expected": [
+    {
+      "ruleId": "LOOSE-TODO-001",
+      "filePath": "src/app.js",
+      "startLine": 2
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+{"description": "MD5 used as a password digest and AES in ECB mode (weak cryptography). SHA-256 must not be flagged.",
+ "expected": [{"ruleId": "SEC-CRYPTO-001", "filePath": "lib/hashing.py", "startLine": 6}, {"ruleId": "SEC-CRYPTO-001", "filePath": "lib/hashing.py", "startLine": 14}]}

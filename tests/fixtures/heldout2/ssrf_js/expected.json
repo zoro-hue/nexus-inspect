@@ -1,0 +1,2 @@
+{"description": "axios request URL taken directly from req.query (SSRF). A constant URL must not be flagged.",
+ "expected": [{"ruleId": "SEC-SSRF-001", "filePath": "src/proxy.js", "startLine": 4}]}

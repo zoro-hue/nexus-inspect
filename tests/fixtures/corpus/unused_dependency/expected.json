@@ -1,0 +1,10 @@
+{
+  "description": "express is used; lodash is declared but never imported.",
+  "expected": [
+    {
+      "ruleId": "LOOSE-DEP-001",
+      "filePath": "package.json",
+      "startLine": 5
+    }
+  ]
+}

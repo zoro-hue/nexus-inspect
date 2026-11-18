@@ -1,0 +1,4 @@
+{
+  "description": "Declarations that look like stubs but are not: overloads, abstract and protocol members, type-checking stubs, abstract hooks, a namespace package import, and a test hook. Must be silent.",
+  "expected": []
+}

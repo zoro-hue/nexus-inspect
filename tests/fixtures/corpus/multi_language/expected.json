@@ -1,0 +1,20 @@
+{
+  "description": "Go and JavaScript in one repository: a TODO marker in Go and a dynamic eval in JavaScript.",
+  "expected": [
+    {
+      "ruleId": "LOOSE-TODO-001",
+      "filePath": "cmd/tool/main.go",
+      "startLine": 3
+    },
+    {
+      "ruleId": "SEC-EVAL-001",
+      "filePath": "web/search.js",
+      "startLine": 1
+    },
+    {
+      "ruleId": "LOOSE-MOD-001",
+      "filePath": "web/search.js",
+      "startLine": 1
+    }
+  ]
+}

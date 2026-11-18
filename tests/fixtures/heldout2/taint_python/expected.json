@@ -1,0 +1,2 @@
+{"description": "Request parameter assigned to a variable, concatenated into a shell command two lines later (multi-line taint into command injection). The literal command must not be flagged.",
+ "expected": [{"ruleId": "SEC-CMD-001", "filePath": "svc/report.py", "startLine": 7}]}

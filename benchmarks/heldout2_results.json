@@ -1,0 +1,286 @@
+{
+  "dataset": "synthetic-heldout-corpus-heldout2",
+  "dataLabel": "Held-out synthetic fixtures written separately from rule tuning. Agreement with these labels is not real-world accuracy.",
+  "caseCount": 10,
+  "overall": {
+    "tp": 10,
+    "fp": 14,
+    "fn": 0,
+    "precision": 0.4167,
+    "recall": 1.0,
+    "f1": 0.5882
+  },
+  "perCategory": {
+    "security": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "gap": {
+      "tp": 0,
+      "fp": 5,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": null,
+      "f1": null
+    },
+    "loose": {
+      "tp": 0,
+      "fp": 9,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": null,
+      "f1": null
+    }
+  },
+  "cases": [
+    {
+      "case": "clean_v2",
+      "description": "Safe counterparts across Python, JavaScript and Go: constant URLs, SHA-256, random tokens, argument-array commands. Must be silent for the new rules.",
+      "expected": 0,
+      "predicted": 3,
+      "exactMatch": false,
+      "seconds": 0.0018,
+      "filesScanned": 4,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [],
+      "unlabelledHits": [
+        [
+          "GAP-ERR-001",
+          "lib/service.py",
+          8
+        ],
+        [
+          "LOOSE-MOD-001",
+          "lib/service.py",
+          1
+        ],
+        [
+          "LOOSE-MOD-001",
+          "tools/archive.go",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "crypto_js",
+      "description": "MD5 hash created for a password (weak cryptography). createHash with sha256 must not be flagged.",
+      "expected": 1,
+      "predicted": 2,
+      "exactMatch": false,
+      "seconds": 0.0006,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-CRYPTO-001"
+      ],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "src/token.js",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "crypto_python",
+      "description": "MD5 used as a password digest and AES in ECB mode (weak cryptography). SHA-256 must not be flagged.",
+      "expected": 2,
+      "predicted": 3,
+      "exactMatch": false,
+      "seconds": 0.0011,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-CRYPTO-001"
+      ],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "lib/hashing.py",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "go_cmd",
+      "description": "Go exec.Command through sh -c with a request value concatenated into the command string. The argument-array form must not be flagged.",
+      "expected": 1,
+      "predicted": 1,
+      "exactMatch": true,
+      "seconds": 0.0006,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-CMD-001"
+      ],
+      "unlabelledHits": []
+    },
+    {
+      "case": "java_cmd",
+      "description": "Java Runtime.exec with a string built from a parameter. ProcessBuilder with an argument list must not be flagged.",
+      "expected": 1,
+      "predicted": 1,
+      "exactMatch": true,
+      "seconds": 0.0005,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-CMD-001"
+      ],
+      "unlabelledHits": []
+    },
+    {
+      "case": "php_cmd",
+      "description": "PHP system() with a superglobal concatenated into the command. A literal system() call must not be flagged.",
+      "expected": 1,
+      "predicted": 2,
+      "exactMatch": false,
+      "seconds": 0.0005,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-CMD-001"
+      ],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "public/run.php",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "ssrf_js",
+      "description": "axios request URL taken directly from req.query (SSRF). A constant URL must not be flagged.",
+      "expected": 1,
+      "predicted": 4,
+      "exactMatch": false,
+      "seconds": 0.0007,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-SSRF-001"
+      ],
+      "unlabelledHits": [
+        [
+          "GAP-ERR-001",
+          "src/proxy.js",
+          4
+        ],
+        [
+          "GAP-ERR-001",
+          "src/proxy.js",
+          9
+        ],
+        [
+          "LOOSE-MOD-001",
+          "src/proxy.js",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "ssrf_python",
+      "description": "Outbound request URL taken from request input through a local variable (SSRF, multi-line). The constant API base URL must not be flagged.",
+      "expected": 1,
+      "predicted": 4,
+      "exactMatch": false,
+      "seconds": 0.001,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-SSRF-001"
+      ],
+      "unlabelledHits": [
+        [
+          "GAP-ERR-001",
+          "app/fetch.py",
+          8
+        ],
+        [
+          "GAP-ERR-001",
+          "app/fetch.py",
+          12
+        ],
+        [
+          "LOOSE-MOD-001",
+          "app/fetch.py",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "taint_js",
+      "description": "Request query value joined into a path, then read with fs.readFile (multi-line taint into path traversal). The fixed path must not be flagged.",
+      "expected": 1,
+      "predicted": 2,
+      "exactMatch": false,
+      "seconds": 0.0007,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-PATH-001"
+      ],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "src/files.js",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "taint_python",
+      "description": "Request parameter assigned to a variable, concatenated into a shell command two lines later (multi-line taint into command injection). The literal command must not be flagged.",
+      "expected": 1,
+      "predicted": 2,
+      "exactMatch": false,
+      "seconds": 0.001,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-CMD-001"
+      ],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "svc/report.py",
+          1
+        ]
+      ]
+    }
+  ],
+  "scoredScope": "labelled-rule-ids-per-case",
+  "scopedOverall": {
+    "tp": 10,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  }
+}

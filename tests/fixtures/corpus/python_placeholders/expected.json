@@ -1,0 +1,30 @@
+{
+  "description": "Stub bodies, a swallowed exception and a statement after return.",
+  "expected": [
+    {
+      "ruleId": "LOOSE-STUB-001",
+      "filePath": "src/billing.py",
+      "startLine": 6
+    },
+    {
+      "ruleId": "LOOSE-STUB-001",
+      "filePath": "src/billing.py",
+      "startLine": 10
+    },
+    {
+      "ruleId": "GAP-ERR-002",
+      "filePath": "src/billing.py",
+      "startLine": 17
+    },
+    {
+      "ruleId": "LOOSE-DEAD-001",
+      "filePath": "src/billing.py",
+      "startLine": 24
+    },
+    {
+      "ruleId": "LOOSE-MOD-001",
+      "filePath": "src/billing.py",
+      "startLine": 1
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "dataset": "synthetic-heldout-corpus-heldout",
+  "dataLabel": "Held-out synthetic fixtures written separately from rule tuning. Agreement with these labels is not real-world accuracy.",
+  "caseCount": 6,
+  "overall": {
+    "tp": 6,
+    "fp": 7,
+    "fn": 0,
+    "precision": 0.4615,
+    "recall": 1.0,
+    "f1": 0.6316
+  },
+  "perCategory": {
+    "security": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "gap": {
+      "tp": 0,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": null,
+      "f1": null
+    },
+    "loose": {
+      "tp": 0,
+      "fp": 6,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": null,
+      "f1": null
+    }
+  },
+  "cases": [
+    {
+      "case": "clean_variants",
+      "description": "Safe counterparts: list-form subprocess, literal json and git calls, no request-derived file paths. Must be silent.",
+      "expected": 0,
+      "predicted": 1,
+      "exactMatch": false,
+      "seconds": 0.0014,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "lib/math_utils.py",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "cmd_js",
+      "description": "child_process.exec with a template string containing a parameter (command injection). execFile with an argument array must not be flagged.",
+      "expected": 1,
+      "predicted": 2,
+      "exactMatch": false,
+      "seconds": 0.0008,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-CMD-001"
+      ],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "src/export.js",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "cmd_python",
+      "description": "shell=True with an f-string built from a parameter (command injection). The list-form call and the literal os.system call must not be flagged.",
+      "expected": 1,
+      "predicted": 2,
+      "exactMatch": false,
+      "seconds": 0.0012,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-CMD-001"
+      ],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "app/tools.py",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "deser_python",
+      "description": "pickle.loads on request data and yaml.load without a safe Loader (unsafe deserialization). yaml.load with SafeLoader must not be flagged.",
+      "expected": 2,
+      "predicted": 4,
+      "exactMatch": false,
+      "seconds": 0.001,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-DESER-001"
+      ],
+      "unlabelledHits": [
+        [
+          "GAP-VALID-001",
+          "svc/loader.py",
+          6
+        ],
+        [
+          "LOOSE-MOD-001",
+          "svc/loader.py",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "path_python",
+      "description": "File path built directly from a request parameter (path traversal). The basename-sanitised variant must not be flagged.",
+      "expected": 1,
+      "predicted": 2,
+      "exactMatch": false,
+      "seconds": 0.0012,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-PATH-001"
+      ],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "svc/files.py",
+          1
+        ]
+      ]
+    },
+    {
+      "case": "xss_js",
+      "description": "innerHTML assigned from request input (DOM XSS). textContent with a plain variable must not be flagged.",
+      "expected": 1,
+      "predicted": 2,
+      "exactMatch": false,
+      "seconds": 0.0007,
+      "filesScanned": 2,
+      "skipped": {},
+      "unmatchedPredicted": [],
+      "missed": [],
+      "labelledRuleIds": [
+        "SEC-XSS-001"
+      ],
+      "unlabelledHits": [
+        [
+          "LOOSE-MOD-001",
+          "web/render.js",
+          1
+        ]
+      ]
+    }
+  ],
+  "scoredScope": "labelled-rule-ids-per-case",
+  "scopedOverall": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  }
+}

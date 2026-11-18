@@ -1,0 +1,6 @@
+{
+  "description": "child_process.exec with a template string containing a parameter (command injection). execFile with an argument array must not be flagged.",
+  "expected": [
+    {"ruleId": "SEC-CMD-001", "filePath": "src/export.js", "startLine": 4}
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "description": "File path built directly from a request parameter (path traversal). The basename-sanitised variant must not be flagged.",
+  "expected": [
+    {"ruleId": "SEC-PATH-001", "filePath": "svc/files.py", "startLine": 7}
+  ]
+}

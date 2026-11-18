@@ -1,0 +1,10 @@
+{
+  "description": "Hardcoded credential in config; placeholder value must be ignored.",
+  "expected": [
+    {
+      "ruleId": "SEC-SECRET-001",
+      "filePath": "config/settings.js",
+      "startLine": 2
+    }
+  ]
+}

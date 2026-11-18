@@ -1,0 +1,2 @@
+{"description": "MD5 hash created for a password (weak cryptography). createHash with sha256 must not be flagged.",
+ "expected": [{"ruleId": "SEC-CRYPTO-001", "filePath": "src/token.js", "startLine": 4}]}

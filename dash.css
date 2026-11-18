@@ -1,0 +1,249 @@
+/* Dashboard components: rendered by dash.js from live API data. Typography: Geist Pixel headings, Geist Sans body, Geist Mono metadata. */
+.conn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--text2);white-space:nowrap}
+.conn i{width:7px;height:7px;border-radius:50%;background:#3fb950;box-shadow:0 0 0 3px rgba(63,185,80,.15)}
+.conn.bad i{background:var(--red);box-shadow:0 0 0 3px rgba(229,9,20,.18)}
+.help{font-size:12px;color:var(--muted);margin:6px 0 0}
+.or-rule{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;margin:22px 0}
+.or-rule::before,.or-rule::after{content:"";flex:1;height:1px;background:var(--border)}
+.run-status{font-family:var(--mono);font-size:13px;color:var(--text2);margin:14px 0 18px;min-height:20px}
+.stages{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.stage{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:15px;color:var(--muted);border-bottom:1px solid var(--border);transition:color .4s,opacity .4s}
+.stage .dot-stage{width:9px;height:9px;border-radius:50%;border:1px solid var(--border-strong);flex:none;transition:all .4s var(--ease-out)}
+.stage.done{color:var(--text2)}
+.stage.done .dot-stage{background:var(--text2);border-color:var(--text2)}
+.stage.active{color:var(--text)}
+.stage.active .dot-stage{background:var(--red);border-color:var(--red);box-shadow:0 0 0 5px rgba(229,9,20,.18);animation:dotPulse 1.4s ease-in-out infinite}
+.stage.stopped .dot-stage{background:var(--muted)}
+@keyframes dotPulse{50%{box-shadow:0 0 0 8px rgba(229,9,20,0)}}
+.run-error{margin-top:16px;padding:12px 14px;border:1px solid rgba(229,9,20,.4);border-radius:10px;color:#ffb4b4;font-size:14px;animation:fadeUp .4s var(--ease-out) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sev-row{display:grid;grid-template-columns:96px minmax(0,1fr) 40px;gap:12px;align-items:center;margin:12px 0}
+.bar{height:6px;background:var(--elev);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--text2);border-radius:999px;transition:width .8s var(--ease-out)}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cat-tile{text-align:left;background:var(--elev);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;transition:border-color .3s,transform .3s var(--ease-out)}
+.cat-tile:hover{border-color:var(--border-strong);transform:translateY(-2px)}
+.stat-num.small{font-size:24px}
+.ov-grid{margin-top:14px;grid-template-columns:1fr 1fr}
+.health-panel{display:flex;gap:16px;align-items:center}
+.list-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;width:100%;text-align:left;padding:12px 0;border-bottom:1px solid var(--border);transition:background .25s}
+.list-row:hover{background:var(--card)}
+.list-row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list-row .mono{grid-column:1/-1;font-size:12px}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.findings{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.finding{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;text-align:left;padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:border-color .25s,transform .3s var(--ease-out),background .25s;animation:fadeUp .4s var(--ease-out) both}
+.finding:hover{border-color:var(--border-strong);transform:translateX(3px);background:var(--elev)}
+.finding-main{display:flex;flex-direction:column;gap:4px;min-width:0}
+.finding-title{font-size:15px;color:var(--text)}
+.finding-meta{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.count{font-family:var(--mono);font-size:12px;color:var(--muted);margin:10px 0 0}
+.project-list{display:flex;flex-direction:column;margin-top:8px}
+.project{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1.4fr) auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--border);transition:background .25s}
+.project:hover{background:var(--card)}
+.project-name{font-size:16px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.project>div{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
+.detail-head{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.detail-title{font-family:var(--pixel),var(--mono);font-weight:400;font-size:26px;line-height:1.15;margin:0 0 16px;overflow-wrap:anywhere}
+.detail-h{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:400;margin:26px 0 10px}
+.detail p{font-size:15px;line-height:1.6;color:var(--text2);margin:0 0 8px}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:0;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;overflow-wrap:anywhere;color:var(--text)}
+.excerpt{font-size:12.5px;line-height:1.7;max-height:320px;overflow:auto;white-space:pre}
+.excerpt .ln{display:block;padding-right:12px;color:var(--text2)}
+.excerpt .ln.hl{background:rgba(229,9,20,.14);color:var(--text);box-shadow:inset 3px 0 0 var(--red)}
+.excerpt .ln-no{display:inline-block;width:40px;padding-right:12px;text-align:right;color:var(--muted);user-select:none}
+.steps{padding-left:20px;margin:0;color:var(--text2);font-size:14px;line-height:1.7}
+.related,.file-list{display:flex;flex-direction:column}
+.related .list-row,.file-list li{font-size:13px}
+.file-list li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.file-list li span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.triage{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.triage textarea{width:100%;background:var(--card);border:1px solid var(--border-strong);border-radius:10px;color:var(--text);padding:10px 12px;font:inherit;box-sizing:border-box}
+.history{list-style:none;padding:0;margin:0;font-size:13px;color:var(--text2)}
+.history li{padding:6px 0;border-bottom:1px solid var(--border)}
+.history-row{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);font-size:13px}
+.disabled{opacity:.4;pointer-events:none}
+.md-preview{margin-top:16px;max-height:420px;overflow:auto;white-space:pre-wrap}
+.view-enter{animation:pageIn 280ms cubic-bezier(.2,.9,.25,1) backwards}
+.view-enter .finding,.view-enter .project,.view-enter .cat-tile,.view-enter .stat-num{animation:fadeUp .5s var(--ease-out) both}
+.view-enter .panel{animation:fadeUp .5s var(--ease-out) both}
+.drawer .detail{animation:fadeUp .4s var(--ease-out) both}
+.dash-main .page-title{font-family:var(--pixel),var(--mono);font-weight:400}
+@media (max-width:820px){
+  .ov-grid,.cat-grid{grid-template-columns:1fr}
+  .project{grid-template-columns:1fr;gap:6px}
+  .history-row{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){
+  .finding,.view-enter,.view-enter .finding,.view-enter .panel,.drawer .detail,.run-error,.stage.active .dot-stage{animation:none}
+}
+
+/* Analysis island: a NEXUS-specific status bar under the header. Width morphs between states with a springy curve;
+   content cross-fades. Its state comes from live events (see dash.js), never from a timer alone. */
+.island{position:sticky;top:8px;z-index:20;margin:0 auto 14px;width:min(var(--island-w,260px),calc(100% - 24px));
+  background:#0D0D0D;border:1px solid var(--border);border-radius:22px;overflow:hidden;
+  transition:width .28s cubic-bezier(.16,1,.3,1),border-color .24s,box-shadow .24s}
+.island[data-state="idle"]{--island-w:260px}
+.island[data-state="queued"],.island[data-state="analyzing"]{--island-w:400px;border-color:var(--border-strong)}
+.island[data-state="findings"],.island[data-state="completed"]{--island-w:460px;border-color:var(--border-strong)}
+.island[data-state="failed"]{--island-w:460px;border-color:var(--red)}
+.island-core{display:flex;align-items:center;gap:12px;min-height:44px;padding:8px 10px 8px 14px}
+.island-dot{width:8px;height:8px;border-radius:50%;background:#777;flex:none;transition:background .3s}
+.island[data-state="idle"] .island-dot{background:#3FB950}
+.island[data-state="queued"] .island-dot{background:#A1A1A1}
+.island[data-state="analyzing"] .island-dot,.island[data-state="findings"] .island-dot{background:var(--red);animation:island-pulse 1.6s ease-in-out infinite}
+.island[data-state="completed"] .island-dot{background:#3FB950}
+.island[data-state="failed"] .island-dot{background:var(--red)}
+.island-text{display:flex;flex-direction:column;min-width:0;flex:1;line-height:1.25}
+.island-text strong{font-size:13px;font-weight:600;white-space:nowrap}
+.island-text .mono{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.island-count{font-size:14px;font-weight:600;min-width:2ch;text-align:right}
+.island-action{height:30px;padding:0 14px;font-size:12px;flex:none}
+.island-track{height:2px;background:#151515;position:relative;overflow:hidden}
+.island-track i{position:absolute;top:0;bottom:0;width:30%;background:var(--red);transform:translateX(-100%);opacity:0}
+.island[data-state="analyzing"] .island-track i{opacity:1;animation:island-sweep 1.4s cubic-bezier(.4,0,.2,1) infinite}
+.island[data-state="queued"] .island-track i{opacity:.5;background:#777;animation:island-sweep 2.2s linear infinite}
+.island[data-state="findings"] .island-track i{opacity:1;transform:translateX(0);width:100%}
+.island[data-state="completed"] .island-track i{opacity:1;transform:translateX(0);width:100%;background:#3FB950}
+.island[data-state="failed"] .island-track i{opacity:1;transform:translateX(0);width:100%}
+.island-text .swap,.island-text strong.swap{animation:island-swap .22s cubic-bezier(.16,1,.3,1) both}
+@keyframes island-swap{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+@keyframes island-sweep{from{transform:translateX(-100%)}to{transform:translateX(340%)}}
+@keyframes island-pulse{0%,100%{box-shadow:0 0 0 0 rgba(229,9,20,.45)}50%{box-shadow:0 0 0 6px rgba(229,9,20,0)}}
+
+@media (prefers-reduced-motion:reduce){
+  .island,.island-dot,.island-track i,.island-text .swap{animation:none!important;transition:none!important}
+}
+
+/* One easing family: a restrained spring curve for arrivals, a quick ease-out for departures.
+   Only opacity and transform animate, except the expansion ghost, which is short and removed when done. */
+:root{--spring:cubic-bezier(.2,.9,.25,1);--settle:cubic-bezier(.22,.8,.3,1)}
+/* Capsule nav indicator: glides between links using CSS transition on transform and width. */
+#capsuleInd{position:absolute;transition:transform 240ms cubic-bezier(.16,1,.3,1),width 240ms cubic-bezier(.16,1,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes finding-in{from{opacity:0;transform:translateY(6px) scale(.99)}to{opacity:1;transform:none}}
+@keyframes finding-flash{0%{border-color:rgba(229,9,20,.55)}100%{border-color:var(--border)}}
+@keyframes row-flash{0%{background:rgba(229,9,20,.08)}100%{background:var(--card)}}
+@keyframes finding-out{to{opacity:0;transform:translateY(-4px);max-height:0;padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0}}
+@keyframes tag-in{0%{opacity:.25;transform:translateY(-3px)}100%{opacity:1;transform:none}}
+@keyframes drawer-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Heading and metric groups arrive first (delays set by the view-open stagger in dash.js). */
+.view-enter .page-title,.view-enter .page-sub{animation:rise .28s var(--spring) both}
+.dash-main .list-row,.dash-main .cat-tile{animation:rise .28s var(--spring) both}
+.dash-main .panel:not(.list-panel){animation:rise .28s var(--spring) both}
+
+/* Live findings: a new row enters and its border warms once; a status change flashes the row and tag; leaving rows fade out. */
+.finding.is-new{animation:finding-in .36s var(--spring) both,finding-flash 1.6s ease-out .1s both}
+.finding.leaving{pointer-events:none;animation:finding-out .24s var(--settle) forwards}
+.finding.status-changed{animation:row-flash .9s ease-out both}
+.tag.changed{animation:tag-in .32s var(--spring) both}
+
+/* Drawer content arrives in a short sequence after the panel starts moving. */
+.drawer.open #drawerBody > *{animation:drawer-in .34s var(--spring) both;animation-delay:calc(var(--i,0) * 32ms + 100ms)}
+
+/* Card-sourced drawer: the panel waits transparent while the ghost travels, then fades in (see openDrawer). */
+.drawer.landing{opacity:0;transform:none}
+.drawer.closing{opacity:0;transform:translateX(100%);pointer-events:none}
+
+/* The expansion ghost: a card-coloured panel that travels between the source card and the drawer. */
+.fx-ghost{position:fixed;z-index:75;pointer-events:none;border:1px solid var(--border-strong);border-radius:12px;background:#151515;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+
+@media (prefers-reduced-motion:reduce){
+  .view-enter .page-title,.view-enter .page-sub,.dash-main .list-row,.dash-main .cat-tile,
+  .finding.is-new,.finding.status-changed,.tag.changed,.drawer.open #drawerBody > *,.fx-ghost{animation:none!important}
+  .finding.leaving{animation:none!important;display:none}
+}
+
+/* Shared elements: clones of a row's severity, title, or marker fly to the drawer's matching elements. */
+.fx-shared{position:fixed;z-index:76;pointer-events:none;margin:0;transform:none;white-space:normal;overflow:hidden;box-sizing:border-box;will-change:left,top,width,height}
+.shared-lent,.shared-hold{visibility:hidden!important}
+
+/* Projects carry a monogram so the row and its detail share a visual marker. */
+.project-cell{display:flex;align-items:center;gap:12px;min-width:0}
+.project-mark{flex:none;display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;border:1px solid var(--border-strong);background:var(--elev);font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--text2)}
+.detail-head .project-mark{width:40px;height:40px;font-size:13px;color:var(--text)}
+
+/* Evidence: long source lines scroll sideways inside the excerpt. The edge shadow shows there is more to read. */
+.excerpt{max-width:100%;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;overscroll-behavior-x:contain}
+.excerpt::-webkit-scrollbar{height:6px}
+.excerpt::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}
+.excerpt.scrollable{box-shadow:inset -22px 0 18px -18px rgba(0,0,0,.75)}
+@media (max-width:480px){
+  .drawer{padding:24px 18px 48px}
+  .excerpt{font-size:12.5px}
+  .excerpt .ln-no{width:30px;padding-right:8px}
+  .excerpt .ln{padding-right:8px}
+}
+
+/* Small screens: the capsule scrolls inside its own track; the page itself never widens. */
+@media (max-width:820px){
+  .dash-top{flex-wrap:wrap;gap:10px 14px;padding-left:16px;padding-right:16px}
+  .capsule-wrap{order:3;width:100%;min-width:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .capsule-wrap::-webkit-scrollbar{display:none}
+  .capsule{width:max-content}
+  .dash-main .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dash-main .grid-4>.panel{min-width:0;overflow-wrap:anywhere}
+  .dash-main .grid-3{grid-template-columns:1fr}
+  .dash-main .spread{flex-direction:column;align-items:stretch;gap:14px}
+  .analyze-grid{grid-template-columns:1fr}
+}
+.dash-main{overflow-x:clip}
+.ai-box{display:flex;flex-direction:column;gap:10px;padding:14px;border:1px dashed var(--border-strong);border-radius:12px}
+.ai-result{display:flex;flex-direction:column;gap:8px;animation:fadeUp .4s var(--ease-out) both}
+.ai-notice{font-size:12px}
+a.btn{text-decoration:none}
+.health-panel .ring{width:120px;height:120px}
+@media (max-width:820px){
+  .health-panel{flex-direction:column;align-items:flex-start;gap:12px}
+  .health-panel .ring{width:112px;height:112px}
+}
+
+.file-list li.inv-group,.file-list li.inv-fact{display:block;overflow-wrap:anywhere;min-width:0}
+.inv-group{padding:12px 0;border-bottom:1px solid var(--border)}
+.inv-group p{margin:4px 0}
+
+/* Relationship graph (analysis drawer) */
+.graph-controls{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:flex-end;margin:14px 0}
+.graph-controls .field{min-width:150px;flex:1 1 150px}
+.graph-controls .check-row{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);min-height:44px}
+.graph-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}
+.graph-figure{margin:0;border:1px solid var(--border);border-radius:14px;background:var(--surf);padding:10px}
+.graph-svg{width:100%;height:auto;display:block}
+.graph-svg .g-edge{stroke:var(--muted);stroke-width:1.5}
+.graph-svg .g-edge.g-potential{stroke-dasharray:5 4}
+.graph-svg .g-edge.g-structure{stroke:var(--border-strong);stroke-width:1}
+.graph-svg .g-node{cursor:pointer;outline:none}
+.graph-svg .g-node circle{fill:var(--card);stroke:var(--text2);stroke-width:1.5}
+.graph-svg .g-node.g-kind-finding circle{stroke:var(--red)}
+.graph-svg .g-node.g-kind-group circle{stroke:var(--text)}
+.graph-svg .g-node.g-kind-component circle{stroke-dasharray:3 3}
+.graph-svg .g-node.g-center circle{fill:var(--soft);stroke:var(--text)}
+.graph-svg .g-node text{font-family:var(--mono);font-size:13px;fill:var(--text2)}
+.graph-svg .g-node text{paint-order:stroke;stroke:var(--surf);stroke-width:4px;stroke-linejoin:round}
+.graph-svg .g-node:focus-visible circle{stroke:var(--text);stroke-width:3}
+.graph-side{min-width:0}
+.graph-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.graph-item{width:100%;display:flex;flex-wrap:wrap;gap:8px;align-items:center;text-align:left;background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);min-height:44px;cursor:pointer;font:inherit;font-size:13px}
+.graph-item:hover{border-color:var(--border-strong)}
+.graph-item.is-current{border-color:var(--text)}
+.graph-item:focus-visible,.graph-actions button:focus-visible,.graph-rels button:focus-visible,[data-graph-clear]:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.graph-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
+.graph-rels{list-style:none;margin:0;padding:0}
+.graph-rel{border-top:1px solid var(--border);padding:10px 0}
+.graph-rel p{margin:4px 0;font-size:13px;overflow-wrap:anywhere}
+.graph-rel code{font-family:var(--mono);font-size:12px;color:var(--text2)}
+.link-btn{background:none;border:0;padding:0;color:var(--text);text-decoration:underline;cursor:pointer;font:inherit;min-height:24px}
+.graph-legend{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 18px;font-size:12px;color:var(--muted)}
+.g-swatch{display:inline-block;width:18px;height:0;border-top:2px solid var(--muted);vertical-align:middle;margin-right:4px}
+.g-swatch.g-potential{border-top-style:dashed}
+.g-swatch.g-structure{border-top-color:var(--border-strong)}
+.g-tag-potential{color:var(--text2)}
+.g-tag-confirmed{color:var(--red)}
+@media (max-width:720px){
+  .graph-controls .field{flex-basis:100%}
+  .graph-svg .g-node text{font-size:14px}
+}

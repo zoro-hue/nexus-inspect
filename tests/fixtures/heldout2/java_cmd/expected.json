@@ -1,0 +1,2 @@
+{"description": "Java Runtime.exec with a string built from a parameter. ProcessBuilder with an argument list must not be flagged.",
+ "expected": [{"ruleId": "SEC-CMD-001", "filePath": "src/main/java/app/App.java", "startLine": 7}]}

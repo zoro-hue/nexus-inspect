@@ -1,0 +1,10 @@
+{
+  "description": "Admin export route without a guard; the guarded admin route must not be flagged.",
+  "expected": [
+    {
+      "ruleId": "SEC-AUTHZ-001",
+      "filePath": "src/routes/admin.js",
+      "startLine": 2
+    }
+  ]
+}

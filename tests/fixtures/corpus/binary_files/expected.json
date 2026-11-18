@@ -1,0 +1,4 @@
+{
+  "description": "A binary file that contains credential-like text. Binary files are skipped and must be silent.",
+  "expected": []
+}

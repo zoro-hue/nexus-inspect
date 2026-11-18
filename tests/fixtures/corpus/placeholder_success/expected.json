@@ -1,0 +1,15 @@
+{
+  "description": "Payment stub that always reports success plus a TODO; the real refund path must not be flagged.",
+  "expected": [
+    {
+      "ruleId": "LOOSE-TODO-001",
+      "filePath": "src/services/payments.js",
+      "startLine": 2
+    },
+    {
+      "ruleId": "SLOP-STUB-001",
+      "filePath": "src/services/payments.js",
+      "startLine": 3
+    }
+  ]
+}

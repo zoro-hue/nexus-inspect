@@ -1,0 +1,7 @@
+{
+  "name": "orders-service",
+  "dependencies": {
+    "express": "^4.19.2",
+    "lodash": "4.17.15"
+  }
+}

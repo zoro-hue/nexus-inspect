@@ -1,0 +1,10 @@
+{
+  "description": "A module nothing imports is reported as possibly unused.",
+  "expected": [
+    {
+      "ruleId": "LOOSE-MOD-001",
+      "filePath": "src/legacy/importer.js",
+      "startLine": 1
+    }
+  ]
+}

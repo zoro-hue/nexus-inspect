@@ -1,0 +1,15 @@
+{
+  "description": "Syntax error in a Python file. A hardcoded key on line 2 must still be found by the line rules.",
+  "expected": [
+    {
+      "ruleId": "SEC-SECRET-001",
+      "filePath": "src/broken.py",
+      "startLine": 2
+    },
+    {
+      "ruleId": "LOOSE-MOD-001",
+      "filePath": "src/broken.py",
+      "startLine": 1
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+{"description": "PHP system() with a superglobal concatenated into the command. A literal system() call must not be flagged.",
+ "expected": [{"ruleId": "SEC-CMD-001", "filePath": "public/run.php", "startLine": 3}]}

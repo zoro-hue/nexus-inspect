@@ -1,0 +1,10 @@
+{
+  "description": "Network call with no error handling.",
+  "expected": [
+    {
+      "ruleId": "GAP-ERR-001",
+      "filePath": "src/jobs/sync.js",
+      "startLine": 2
+    }
+  ]
+}

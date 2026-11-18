@@ -1,0 +1,10 @@
+{
+  "description": "Request body used without validation.",
+  "expected": [
+    {
+      "ruleId": "GAP-VALID-001",
+      "filePath": "src/routes/orders.js",
+      "startLine": 3
+    }
+  ]
+}

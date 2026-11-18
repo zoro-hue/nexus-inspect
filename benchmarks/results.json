@@ -1,0 +1,318 @@
+{
+  "aiProvider": {
+    "enabled": false,
+    "note": "Findings are deterministic. The benchmark never calls an AI provider."
+  },
+  "corpus": {
+    "caseCount": 19,
+    "cases": [
+      {
+        "case": "binary_files",
+        "description": "A binary file that contains credential-like text. Binary files are skipped and must be silent.",
+        "exactMatch": true,
+        "expected": 0,
+        "filesScanned": 1,
+        "missed": [],
+        "predicted": 0,
+        "seconds": 0.0003,
+        "skipped": {
+          "binary": 1
+        },
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "clean_python_service",
+        "description": "Idiomatic Python with real bodies, logged exceptions and a resolvable relative import. Must be silent.",
+        "exactMatch": true,
+        "expected": 0,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 0,
+        "seconds": 0.0023,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "clean_repository",
+        "description": "Validated, guarded, imported code. Expect zero findings.",
+        "exactMatch": true,
+        "expected": 0,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 0,
+        "seconds": 0.0009,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "empty_repository",
+        "description": "Repository with documentation only. Must be silent.",
+        "exactMatch": true,
+        "expected": 0,
+        "filesScanned": 1,
+        "missed": [],
+        "predicted": 0,
+        "seconds": 0.0002,
+        "skipped": {
+          "unsupported_type": 1
+        },
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "generated_and_minified",
+        "description": "A generated file with a credential and a minified bundle with eval. Both are skipped by design.",
+        "exactMatch": true,
+        "expected": 0,
+        "filesScanned": 1,
+        "missed": [],
+        "predicted": 0,
+        "seconds": 0.0002,
+        "skipped": {
+          "generated": 1,
+          "minified": 1
+        },
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "malformed_python",
+        "description": "Syntax error in a Python file. A hardcoded key on line 2 must still be found by the line rules.",
+        "exactMatch": true,
+        "expected": 2,
+        "filesScanned": 2,
+        "missed": [],
+        "predicted": 2,
+        "seconds": 0.0009,
+        "skipped": {
+          "unparseable_python": 1
+        },
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "missing_authz",
+        "description": "Admin export route without a guard; the guarded admin route must not be flagged.",
+        "exactMatch": true,
+        "expected": 1,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 1,
+        "seconds": 0.0011,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "missing_error_handling",
+        "description": "Network call with no error handling.",
+        "exactMatch": true,
+        "expected": 1,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 1,
+        "seconds": 0.001,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "missing_validation",
+        "description": "Request body used without validation.",
+        "exactMatch": true,
+        "expected": 1,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 1,
+        "seconds": 0.0011,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "multi_file_correlation",
+        "description": "Broken relative import in pkg/app.py; the same stub in two files of pkg; a resolvable JS import.",
+        "exactMatch": true,
+        "expected": 5,
+        "filesScanned": 6,
+        "missed": [],
+        "predicted": 5,
+        "seconds": 0.0024,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "multi_language",
+        "description": "Go and JavaScript in one repository: a TODO marker in Go and a dynamic eval in JavaScript.",
+        "exactMatch": true,
+        "expected": 3,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 3,
+        "seconds": 0.0009,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "placeholder_success",
+        "description": "Payment stub that always reports success plus a TODO; the real refund path must not be flagged.",
+        "exactMatch": true,
+        "expected": 2,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 2,
+        "seconds": 0.0013,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "python_declarations_clean",
+        "description": "Declarations that look like stubs but are not: overloads, abstract and protocol members, type-checking stubs, abstract hooks, a namespace package import, and a test hook. Must be silent.",
+        "exactMatch": true,
+        "expected": 0,
+        "filesScanned": 7,
+        "missed": [],
+        "predicted": 0,
+        "seconds": 0.004,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "python_placeholders",
+        "description": "Stub bodies, a swallowed exception and a statement after return.",
+        "exactMatch": true,
+        "expected": 5,
+        "filesScanned": 2,
+        "missed": [],
+        "predicted": 5,
+        "seconds": 0.0019,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "secret_hardcoded",
+        "description": "Hardcoded credential in config; placeholder value must be ignored.",
+        "exactMatch": true,
+        "expected": 1,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 1,
+        "seconds": 0.0008,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "sql_injection",
+        "description": "SQL built by concatenation; parameterized query must not be flagged.",
+        "exactMatch": true,
+        "expected": 1,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 1,
+        "seconds": 0.0011,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "todo_marker",
+        "description": "Comment marker is flagged; the word TODO inside a string is not.",
+        "exactMatch": true,
+        "expected": 1,
+        "filesScanned": 2,
+        "missed": [],
+        "predicted": 1,
+        "seconds": 0.0005,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "unused_dependency",
+        "description": "express is used; lodash is declared but never imported.",
+        "exactMatch": true,
+        "expected": 1,
+        "filesScanned": 3,
+        "missed": [],
+        "predicted": 1,
+        "seconds": 0.001,
+        "skipped": {},
+        "unmatchedPredicted": []
+      },
+      {
+        "case": "unused_module",
+        "description": "A module nothing imports is reported as possibly unused.",
+        "exactMatch": true,
+        "expected": 1,
+        "filesScanned": 4,
+        "missed": [],
+        "predicted": 1,
+        "seconds": 0.0011,
+        "skipped": {},
+        "unmatchedPredicted": []
+      }
+    ],
+    "dataLabel": "Synthetic fixtures with hand-written labels. Agreement with these labels is not real-world accuracy.",
+    "dataset": "synthetic-labelled-corpus",
+    "overall": {
+      "f1": 1.0,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 25
+    },
+    "perCategory": {
+      "gap": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 4
+      },
+      "loose": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 15
+      },
+      "security": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 5
+      },
+      "slop": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 1
+      }
+    }
+  },
+  "environment": {
+    "platform": "Linux",
+    "python": "3.13.18"
+  },
+  "externalValidation": {
+    "note": "No external repositories were analysed for this report.",
+    "status": "not run"
+  },
+  "generatedWith": "nexus.benchmark",
+  "large": {
+    "dataLabel": "Generated tree with one planted stub. Measures time and noise, not detection quality on real code.",
+    "dataset": "synthetic-generated-large",
+    "files": 1500,
+    "filesScanned": 1510,
+    "findings": 1,
+    "partial": false,
+    "score": {
+      "f1": 1.0,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 1
+    },
+    "seconds": 3.3234
+  }
+}

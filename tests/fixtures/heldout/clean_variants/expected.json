@@ -1,0 +1,4 @@
+{
+  "description": "Safe counterparts: list-form subprocess, literal json and git calls, no request-derived file paths. Must be silent.",
+  "expected": []
+}

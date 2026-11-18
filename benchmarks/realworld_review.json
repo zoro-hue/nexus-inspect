@@ -1,0 +1,66 @@
+{
+  "dataset": "unlabelled-real-world-sample",
+  "dataLabel": "Third-party packages from the sandbox site-packages (flask, click, anyio, attrs, bs4, docx, dotenv). Read and scanned only, never executed. Labels below are one reviewer's (author's) reading of each hit, not an independent second review.",
+  "reviewer": "single author review, not independent",
+  "packages": {
+    "flask": 3,
+    "click": 8,
+    "anyio": 12,
+    "attrs": 0,
+    "bs4": 27,
+    "docx": 11,
+    "dotenv": 0
+  },
+  "newRuleHits": [
+    {
+      "ruleId": "SEC-CRYPTO-001",
+      "file": "flask/sessions.py",
+      "line": 281,
+      "verdict": "not a vulnerability in context",
+      "reason": "sha1 is the default digest for session signing in a signature, not a password hash"
+    },
+    {
+      "ruleId": "SEC-CRYPTO-001",
+      "file": "docx/image/image.py",
+      "line": 151,
+      "verdict": "not a vulnerability in context",
+      "reason": "content identifier for image de-duplication"
+    },
+    {
+      "ruleId": "SEC-CRYPTO-001",
+      "file": "docx/parts/image.py",
+      "line": 80,
+      "verdict": "not a vulnerability in context",
+      "reason": "content identifier for image de-duplication"
+    },
+    {
+      "ruleId": "SEC-DESER-001",
+      "file": "anyio/to_interpreter.py",
+      "line": 130,
+      "verdict": "not a vulnerability under its stated threat model",
+      "reason": "pickle over a channel from a child process the library starts"
+    },
+    {
+      "ruleId": "SEC-DESER-001",
+      "file": "anyio/to_process.py",
+      "line": 95,
+      "verdict": "not a vulnerability under its stated threat model",
+      "reason": "pickle over a channel from a child process the library starts"
+    },
+    {
+      "ruleId": "SEC-DESER-001",
+      "file": "anyio/to_process.py",
+      "line": 220,
+      "verdict": "not a vulnerability under its stated threat model",
+      "reason": "pickle from the parent-controlled stdin of a worker process"
+    }
+  ],
+  "summary": {
+    "newRuleHits": 6,
+    "reviewedAsVulnerability": 0,
+    "precisionEstimate": 0.0,
+    "sampleSize": 6
+  },
+  "otherRuleSpotChecks": "SEC-EVAL-001 (flask/cli.py:1031, flask/config.py:209) is an intentional exec of a user's own config file. Not reviewed further.",
+  "limit": "Six hits is too small for a reliable precision estimate. It shows the new rules are noisy on real library code, and their severity has been lowered accordingly."
+}

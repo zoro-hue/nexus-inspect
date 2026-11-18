@@ -1,0 +1,7 @@
+{
+  "description": "pickle.loads on request data and yaml.load without a safe Loader (unsafe deserialization). yaml.load with SafeLoader must not be flagged.",
+  "expected": [
+    {"ruleId": "SEC-DESER-001", "filePath": "svc/loader.py", "startLine": 6},
+    {"ruleId": "SEC-DESER-001", "filePath": "svc/loader.py", "startLine": 10}
+  ]
+}

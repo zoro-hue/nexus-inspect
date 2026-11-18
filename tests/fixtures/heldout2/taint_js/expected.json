@@ -1,0 +1,2 @@
+{"description": "Request query value joined into a path, then read with fs.readFile (multi-line taint into path traversal). The fixed path must not be flagged.",
+ "expected": [{"ruleId": "SEC-PATH-001", "filePath": "src/files.js", "startLine": 8}]}

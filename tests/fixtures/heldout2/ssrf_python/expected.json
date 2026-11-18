@@ -1,0 +1,2 @@
+{"description": "Outbound request URL taken from request input through a local variable (SSRF, multi-line). The constant API base URL must not be flagged.",
+ "expected": [{"ruleId": "SEC-SSRF-001", "filePath": "app/fetch.py", "startLine": 8}]}

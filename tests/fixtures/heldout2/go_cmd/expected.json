@@ -1,0 +1,2 @@
+{"description": "Go exec.Command through sh -c with a request value concatenated into the command string. The argument-array form must not be flagged.",
+ "expected": [{"ruleId": "SEC-CMD-001", "filePath": "cmd/run/main.go", "startLine": 10}]}

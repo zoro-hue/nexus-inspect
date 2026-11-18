@@ -1,0 +1,6 @@
+{
+  "description": "innerHTML assigned from request input (DOM XSS). textContent with a plain variable must not be flagged.",
+  "expected": [
+    {"ruleId": "SEC-XSS-001", "filePath": "web/render.js", "startLine": 2}
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "description": "A generated file with a credential and a minified bundle with eval. Both are skipped by design.",
+  "expected": []
+}

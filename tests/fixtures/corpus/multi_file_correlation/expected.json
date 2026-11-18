@@ -1,0 +1,30 @@
+{
+  "description": "Broken relative import in pkg/app.py; the same stub in two files of pkg; a resolvable JS import.",
+  "expected": [
+    {
+      "ruleId": "GAP-INTEG-001",
+      "filePath": "pkg/app.py",
+      "startLine": 1
+    },
+    {
+      "ruleId": "LOOSE-STUB-001",
+      "filePath": "pkg/exports.py",
+      "startLine": 1
+    },
+    {
+      "ruleId": "LOOSE-STUB-001",
+      "filePath": "pkg/reports.py",
+      "startLine": 1
+    },
+    {
+      "ruleId": "LOOSE-MOD-001",
+      "filePath": "pkg/exports.py",
+      "startLine": 1
+    },
+    {
+      "ruleId": "LOOSE-MOD-001",
+      "filePath": "pkg/reports.py",
+      "startLine": 1
+    }
+  ]
+}

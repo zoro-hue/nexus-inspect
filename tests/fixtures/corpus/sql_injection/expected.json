@@ -1,0 +1,10 @@
+{
+  "description": "SQL built by concatenation; parameterized query must not be flagged.",
+  "expected": [
+    {
+      "ruleId": "SEC-SQL-001",
+      "filePath": "src/db/users.js",
+      "startLine": 2
+    }
+  ]
+}
