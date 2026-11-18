@@ -70,7 +70,8 @@
     const hash = (location.hash || '').replace('#', '').split('?')[0];
     const parts = hash.split('/');
     const route = parts[0] || 'home';
-    let aid = localStorage.getItem('nexus.analysis') || null;
+    const isAnalysisRoute = ['overview', 'findings', 'reports'].includes(route);
+    let aid = isAnalysisRoute ? (localStorage.getItem('nexus.analysis') || null) : null;
     let fid = null;
 
     // Check if drawer is open for a finding
@@ -229,7 +230,8 @@
       removeTyping();
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        appendMessage('assistant', `Error: ${err.message || 'Unable to process query. Please try again.'}`);
+        const errMsg = (err && err.error && err.error.message) || err.message || 'Unable to process query. Please try again.';
+        appendMessage('assistant', `Error: ${errMsg}`);
       } else {
         const data = await res.json();
         appendMessage('assistant', data.reply, data.notice);

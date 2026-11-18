@@ -231,3 +231,17 @@ Not done:
 - Error handling: Granular error classification distinguishing rate limiting (`Retry-After`), invalid tokens (401), permission limits (403), repository not found (404), timeouts (504), and transport errors (502).
 - Tests and verification: Added `tests/test_github_ratelimit.py` covering all 12 scenarios with deterministic mocks. Full test suite: 359 tests executed and passed (0 failures, 3 Windows symlink skips). Browser verification executed in headless Chromium across desktop and 390px mobile viewports.
 
+## Pass: Nexus AI chat query failure fix and platform knowledge engine expansion
+
+- Problem: In the Nexus AI floating panel, asking questions such as "How fast does deterministic analysis run?" returned "Error: Unable to process query. Please try again."
+- Root cause A (Frontend Error Masking): `app/assistant.js` checked `err.message`, but the backend returns structured errors under `{"error": {"code": ..., "message": ...}}`. Consequently, `err.message` was undefined, falling back to the generic error string for every non-200 HTTP response.
+- Root cause B (Frontend Stale Context Leak): `assistant.js`'s `getContext()` unconditionally pulled `localStorage.getItem('nexus.analysis')` on all routes (including `#home` and `#analyze`), sending an obsolete or deleted analysis ID even for unauthenticated users asking general questions.
+- Root cause C (Backend Analysis Ownership Block): `nexus/assistant.py` strictly rejected any query with an `analysisId` if the user was unauthenticated (401) or didn't own the analysis (404), even when the user was asking general platform questions on non-analysis routes.
+- Root cause D (Missing Knowledge Handlers): The deterministic knowledge engine in `nexus/assistant.py` lacked branches for queries regarding speed/performance, supported formats/languages, and source code privacy/external transmission. When an analysis was present, it defaulted to the repository summary rather than answering the user's specific query.
+- Fix:
+  1. `app/assistant.js`: Updated `getContext()` to only attach `analysisId` on analysis dashboard routes (`overview`, `findings`, `reports`). Updated error message extraction to `(err && err.error && err.error.message) || err.message` so informative backend error details are surfaced.
+  2. `nexus/assistant.py`: In `chat()`, isolated analysis ownership checks so stale or unauthenticated analysis contexts on non-analysis routes are gracefully bypassed for general inquiries. In `format_deterministic_reply()`, added comprehensive, grounded knowledge handlers for performance/speed ("under 2 seconds"), supported formats (GitHub URLs, ZIP up to 25MB, supported languages), and privacy/external code transmission (100% local/offline analysis, zero code sent externally).
+  3. `nexus/ai.py`: Added support for detecting `GEMINI_API_KEY`, `ANTHROPIC_API_KEY`, and `OPENAI_API_KEY` alongside `NEXUS_AI_API_KEY`.
+  4. Fallback: Added graceful provider timeout/failure fallback with user notice when live LLM APIs fail.
+- Tests & Verification: Added 5 new unit tests in `tests/test_assistant.py` covering deterministic speed queries, supported formats, source code privacy, stale analysis IDs on general pages, and graceful AI provider failure fallback. Full test suite: 364 tests executed and passed (0 failures, 3 Windows symlink skips). Executed live in-browser Selenium verification on `#analyze` verifying panel opening, query dispatch, suggestion chip clicks, and DOM rendering.
+

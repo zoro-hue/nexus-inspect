@@ -62,7 +62,12 @@ def mask_secret(text: str, secret: str) -> str:
 def config(env: Optional[Dict[str, str]] = None) -> Tuple[str, str, str]:
     """Return (api_key, model, provider). Autodetects provider from key prefix if not specified."""
     env = os.environ if env is None else env
-    key = env.get("NEXUS_AI_API_KEY", "").strip()
+    key = (
+        env.get("NEXUS_AI_API_KEY", "").strip()
+        or env.get("GEMINI_API_KEY", "").strip()
+        or env.get("ANTHROPIC_API_KEY", "").strip()
+        or env.get("OPENAI_API_KEY", "").strip()
+    )
     provider = env.get("NEXUS_AI_PROVIDER", "").strip().lower()
 
     if not provider:

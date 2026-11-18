@@ -151,6 +151,84 @@ class TestAssistant(unittest.TestCase):
             json.dumps({"message": "   ", "context": {}}).encode("utf-8"),
         )
         self.assertEqual(status, 400)
+        data = json.loads(body.decode("utf-8"))
+        self.assertEqual(data.get("error", {}).get("code"), "invalid_message")
+        self.assertEqual(data.get("error", {}).get("message"), "Message must not be empty.")
+
+    def test_chat_speed_question(self):
+        status, _, body = api.handle(
+            self.store,
+            "POST",
+            "/api/ai/chat",
+            json.dumps({
+                "message": "How fast does deterministic analysis run?",
+                "context": {"route": "analyze"},
+            }).encode("utf-8"),
+        )
+        self.assertEqual(status, 200)
+        data = json.loads(body.decode("utf-8"))
+        self.assertIn("under 2 seconds", data["reply"])
+        self.assertTrue(data.get("fallback"))
+
+    def test_chat_supported_formats(self):
+        status, _, body = api.handle(
+            self.store,
+            "POST",
+            "/api/ai/chat",
+            json.dumps({
+                "message": "What repository formats are supported?",
+                "context": {"route": "analyze"},
+            }).encode("utf-8"),
+        )
+        self.assertEqual(status, 200)
+        data = json.loads(body.decode("utf-8"))
+        self.assertIn("ZIP Archives", data["reply"])
+        self.assertIn("GitHub Repositories", data["reply"])
+        self.assertIn("Python", data["reply"])
+
+    def test_chat_external_privacy(self):
+        status, _, body = api.handle(
+            self.store,
+            "POST",
+            "/api/ai/chat",
+            json.dumps({
+                "message": "Does NEXUS send my source code externally?",
+                "context": {"route": "home"},
+            }).encode("utf-8"),
+        )
+        self.assertEqual(status, 200)
+        data = json.loads(body.decode("utf-8"))
+        self.assertIn("does not transmit your source code externally", data["reply"])
+
+    def test_stale_analysis_id_on_general_page(self):
+        # Guest with stale localStorage analysisId on analyze page asks speed question
+        status, _, body = api.handle(
+            self.store,
+            "POST",
+            "/api/ai/chat",
+            json.dumps({
+                "message": "How fast does deterministic analysis run?",
+                "context": {"route": "analyze", "analysisId": "stale_deleted_id_999"},
+            }).encode("utf-8"),
+        )
+        self.assertEqual(status, 200)
+        data = json.loads(body.decode("utf-8"))
+        self.assertIn("under 2 seconds", data["reply"])
+
+    def test_provider_failure_graceful_fallback(self):
+        # When an external provider is enabled but throws or times out
+        fake_env = {"GEMINI_API_KEY": "fake-key-for-test"}
+        reply = assistant.chat(
+            self.store,
+            None,
+            "What rules does NEXUS check?",
+            context={"route": "home"},
+            env=fake_env,
+            opener=None,  # will fail network call gracefully
+        )
+        self.assertTrue(reply.get("fallback"))
+        self.assertIn("deterministic detection rules", reply["reply"])
+        self.assertIn("AI provider unavailable", reply.get("notice", ""))
 
     def test_suggestions_api(self):
         status, _, body = api.handle(
