@@ -8,7 +8,7 @@ The application is a Python 3 standard-library server (`http.server`, `sqlite3`,
 
 ```bash
 python -m pip install -r requirements.txt   # installs nothing; stdlib only
-python -m unittest discover -v              # runs the test suite (322 tests; 5 optional selenium tests skip when selenium is not installed)
+python -m unittest discover -v              # runs the test suite (359 tests; 5 optional selenium tests skip when selenium is not installed)
 python server.py                            # http://127.0.0.1:8000 (PORT and HOST can override)
 ```
 
